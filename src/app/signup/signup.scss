@@ -1,0 +1,29 @@
+@use './../globals.scss' as *;
+
+.heading-signup {
+    font-size: $font-xl;
+    font-weight: 600;
+    color: $txt-color-primary;
+}
+
+.subheading,
+.label {
+    color: $txt-color-primary;
+}
+
+.subheading {
+    @apply font-bold mt-2 mb-6;
+}
+
+.label {
+    @apply font-medium;
+}
+
+.input-fields {
+    border: 2px solid $txt-color-secondary;
+    @apply mb-5 py-1 px-2 mt-1 rounded bg-transparent outline-none transition-all duration-300;
+
+    &:focus {
+        border-color: $txt-color-primary;
+    }
+}

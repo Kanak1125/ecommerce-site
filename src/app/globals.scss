@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+$primary-color: hsl(0, 0%, 100%);
+$secondary-color: hsl(206, 35%, 23%);
+$accent-color: hsl(4, 86%, 63%);
+$txt-color-primary: $secondary-color;
+$txt-color-secondary: hsl(0, 0%, 62%);
+$txt-color-primary-inv: hsl(0, 0%, 100%);
+
+// color on hovers...
+$accent-color-on-hover: hsl(4, 86%, 55%);
+
+// font sizes...
+$font-xxl: 40px;
+$font-xl: 32px;
+$font-lg: 26px;
+$font-md: 20px;
+$font-sm: 16px;
+$font-xs: 12px;
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  // @apply min-h-screen;
+}

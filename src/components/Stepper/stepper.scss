@@ -1,0 +1,39 @@
+@use '../../app/globals.scss' as *;
+
+.step {
+    // border: 2px solid red;
+    @apply relative flex flex-col justify-center items-center w-36 select-none font-semibold;
+
+    &:not(:first-child)::before {
+        background-color: $txt-color-secondary;
+
+        // this should be directly set with the help of the state in react...
+        @apply content-[''] absolute w-full h-[3px] top-1/4 right-2/4 -translate-y-2/4 -z-10;
+    }
+}
+
+.step-idx {
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    border: 2px solid $secondary-color;
+    color: $txt-color-primary;
+    background-color: $txt-color-primary-inv;
+    @apply rounded-full border-2 mx-auto box-content;
+    
+    &.active {
+        background-color: $secondary-color;
+        color: $txt-color-primary-inv;
+        // border animation
+    }
+    &.visited {
+        background-color: $secondary-color;
+        color: $txt-color-primary-inv;
+        // opacity: 0.6;
+    }
+}
+
+.step-title {
+    color: $txt-color-primary;
+    @apply mt-2;
+}
