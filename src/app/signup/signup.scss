@@ -1,7 +1,7 @@
 @use './../globals.scss' as *;
 
 .signup-form {
-    @apply flex flex-col w-[80%] max-w-[444px] mx-auto px-4 rounded-md shadow-lg;
+    @apply flex flex-col w-[80%] max-w-[444px] mx-auto px-4 rounded-md shadow-lg break-words break-all;
 }
 .heading-signup {
     font-size: $font-xl;
@@ -15,17 +15,17 @@
 }
 
 .subheading {
-    @apply font-bold mt-2 mb-6;
+    @apply font-bold mt-2 ;
 }
 
 .label {
-    @apply font-medium;
+    @apply font-medium mt-4;
 }
 
 .input-fields {
     border: 2px solid $txt-color-secondary;
-    @apply mb-5 py-1 px-2 mt-1 rounded bg-transparent outline-none transition-all duration-300;
-
+    @apply py-1 px-2 mt-1 rounded bg-transparent outline-none transition-all duration-300;
+    // mb-5
     &:focus {
         border-color: $txt-color-primary;
     }

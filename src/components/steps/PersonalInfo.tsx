@@ -1,14 +1,15 @@
 import React from 'react'
 import { Schema } from 'yup'
-import { UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
 const PersonalInfo = ( props: {
-    schema: Schema;
+    // schema: Schema;
     register: any;  // this needs to be considered...
+    errors: any
   }) => {
   // define schema for validation here...
-  const {register, schema} = props;
-  
+  const {register, errors} = props;
+  console.log(errors?.fullName);
   return (
     <>
         <h2 className='subheading'>Personal Information</h2>
@@ -17,20 +18,23 @@ const PersonalInfo = ( props: {
             type="text"
             // ref={emailRef}
             {...register("fullName", {
-              required: "Name is required"
+              required: "Name is required",
             })}
             id="fullName" 
             className='input-fields'
-            required
         />
+        {errors.fullName?.message && <p className="text-red-400 text-sm my-1">{errors.fullName?.message}</p>}
         <label htmlFor="address" className='label'>Address: </label>
         <input 
             type="text"
+            {...register("address", {
+              required: "Address is required"
+            })}
             // ref={emailRef}
             id="address" 
             className='input-fields'
-            required
         />
+        <p className="text-red-400 text-sm my-1">{errors.address?.message}</p>
         {/* <label htmlFor="email">Email: </label> */}
         {/* <input 
           type="email"
