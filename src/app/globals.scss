@@ -29,3 +29,8 @@ $font-xs: 12px;
 body {
   // @apply min-h-screen;
 }
+
+// utility classes...
+.text-accent-color {
+  color: $accent-color;
+}

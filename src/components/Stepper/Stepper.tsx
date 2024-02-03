@@ -3,14 +3,19 @@ import "./stepper.scss";
 
 const Stepper = ( props: {
   steps: string[];
-  currentStep: string;
+  currentStep: number;
 } ) => {
   // steps may be added LayoutRouter...
   
   const { steps, currentStep } = props;
   const renderSteps: any = steps.map((step, i) => (
-    <div key={i} className='step'>
-      <div className='step-idx'>{i + 1}</div>
+    <div key={i} className={`step ${currentStep > i && 'passed'}`}>
+      <div 
+        className={`step-idx 
+        ${currentStep - 1 == i && 'active'}
+        ${currentStep - 1 > i && 'visited'}
+        `
+        }>{i + 1}</div>
       <p className='step-title'>{ step }</p>
     </div>
   ));

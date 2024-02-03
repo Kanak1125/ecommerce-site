@@ -4,7 +4,7 @@
     background-color: $accent-color;
     color: $txt-color-primary-inv;
     width: max-content;
-    @apply mb-4 p-2 rounded transition-all duration-300 ease-in-out cursor-pointer mt-1;
+    @apply p-2 rounded transition-all duration-300 ease-in-out cursor-pointer;
     
     &:hover {
         background-color: $accent-color-on-hover;
@@ -12,5 +12,5 @@
 }
 
 .next-btn {
-    @apply self-end;
+    @apply ml-auto;
 }

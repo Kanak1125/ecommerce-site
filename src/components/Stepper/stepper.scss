@@ -10,6 +10,10 @@
         // this should be directly set with the help of the state in react...
         @apply content-[''] absolute w-full h-[3px] top-1/4 right-2/4 -translate-y-2/4 -z-10;
     }
+
+    &.passed::before {
+        background-color: $secondary-color;
+    }
 }
 
 .step-idx {
@@ -22,8 +26,9 @@
     @apply rounded-full border-2 mx-auto box-content;
     
     &.active {
-        background-color: $secondary-color;
+        background-color: $accent-color;
         color: $txt-color-primary-inv;
+        border: 2px solid $accent-color;
         // border animation
     }
     &.visited {
