@@ -17,7 +17,6 @@ const ContactInfo = (props: {
           id="email" 
           placeholder='example@mail.com'
           className='input-fields '
-          required
         />
         <p className="text-red-400 text-sm my-1">{errors.email?.message}</p>
         <label htmlFor="ph-number" className='label'>Phone: </label> 
@@ -27,7 +26,6 @@ const ContactInfo = (props: {
           {...register("phone")}
           id="ph-number" 
           className='input-fields'
-          required
         />
         <p className="text-red-400 text-sm my-1">{errors.phone?.message}</p>
     </>

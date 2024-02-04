@@ -18,7 +18,14 @@ $font-xl: 32px;
 $font-lg: 26px;
 $font-md: 20px;
 $font-sm: 16px;
-$font-xs: 12px;
+$font-xs: 14px;
+$font-xxs: 12px;
+
+// breakpoints...
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
 
 *, *::before, *::after {
   margin: 0;
@@ -33,4 +40,16 @@ body {
 // utility classes...
 .text-accent-color {
   color: $accent-color;
+}
+
+@mixin md{
+  @media screen and (min-width: $md) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media screen and (min-width: $lg) {
+    @content;
+  }
 }

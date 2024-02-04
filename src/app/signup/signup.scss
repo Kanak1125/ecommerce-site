@@ -4,18 +4,32 @@
     @apply flex flex-col w-[80%] max-w-[444px] mx-auto px-4 rounded-md shadow-lg break-words break-all;
 }
 .heading-signup {
-    font-size: $font-xl;
+    font-size: $font-lg;
     font-weight: 600;
     color: $txt-color-primary;
+
+    @include md {
+        font-size: $font-xl;
+    }
 }
 
 .subheading,
 .label {
     color: $txt-color-primary;
+    font-size: $font-xs;
+
+    @include md {
+        font-size: $font-sm;
+    }
 }
 
 .subheading {
+    font-size: $font-sm;
     @apply font-bold mt-2 ;
+
+    @include md {
+        font-size: $font-md;
+    }
 }
 
 .label {

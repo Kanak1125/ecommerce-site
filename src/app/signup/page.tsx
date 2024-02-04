@@ -9,35 +9,16 @@ import ContactInfo from '@/components/steps/ContactInfo';
 import PasswordInfo from '@/components/steps/PasswordInfo';
 import FinishForm from '@/components/steps/FinishForm';
 import { FieldValues, useForm } from "react-hook-form";
-import { object, string, number, boolean, ref, ObjectSchema } from 'yup';
+import { ObjectSchema } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { schema_PersonalInfo, schema_ContactInfo, schema_PasswordInfo, schema_Agreement } from '@/schema/schema_signup';
+
+// need to work out on the back button of the signup page...
+// FIX: validation errors...
 
 const page = () => {
   const steps = ['Personal', 'Contact', 'Password', 'Finish'];
   const [currentStep, setCurrentStep] = useState(1);
-
-  // define schema for validation here...
-  const schema_PersonalInfo = object().shape({
-    fullName: string().required("Your name is required"),
-    address: string().required("Your address is required"),
-  });
-  const schema_ContactInfo = object().shape({
-    email: string().required("Please enter your email").email(),
-    phone: number().required("Enter your phone number"),
-  });
-  const schema_PasswordInfo = object().shape({
-    password: string().required("Your password is Required")
-      .min(4, "Must be greater than 4")
-      .max(16, "Mustn't be longer than 16"),
-    confirm_password: string()
-      .label('confirm password')
-      .required()
-      .oneOf([ref('password'), ''], 'Passwords must match'),
-  });
-  const schema_Agreement = object().shape({
-    terms_and_conditions: boolean().required("You must agree to the terms"),
-    privacy_policy: boolean().required("You must agree our privacy policy"),
-  });
   
   let currentSchema: ObjectSchema<FieldValues, any, any, any>;
   switch (currentStep) {
@@ -74,59 +55,59 @@ const page = () => {
 
   console.log(errors);
 
-  const displayStep = (step: number) => {
-    switch(step) {
-      case 1:
-        return <PersonalInfo 
-          // schema={schema}
-          register={register}
-          errors={errors}
-        />
-      case 2:
-        return <ContactInfo 
-          register={register}
-          errors={errors}
-        />
-      case 3:
-        return <PasswordInfo 
-          register={register}
-          errors={errors}
-        />
-      case 4:
-        return <FinishForm 
-          register={register}
-          errors={errors}
-        />
-      default: 
-        return <PersonalInfo 
-          // schema={schema}
-          register={register}
-          errors={errors}
-        />
-    }
+  // const displayStep = (step: number) => {
+  //   switch(step) {
+  //     case 1:
+  //       return <PersonalInfo 
+  //         // schema={schema}
+  //         register={register}
+  //         errors={errors}
+  //       />
+  //     case 2:
+  //       return <ContactInfo 
+  //         register={register}
+  //         errors={errors}
+  //       />
+  //     case 3:
+  //       return <PasswordInfo 
+  //         register={register}
+  //         errors={errors}
+  //       />
+  //     case 4:
+  //       return <FinishForm 
+  //         register={register}
+  //         errors={errors}
+  //       />
+  //     default: 
+  //       return <PersonalInfo 
+  //         // schema={schema}
+  //         register={register}
+  //         errors={errors}
+  //       />
+  //   }
+  // }
+  
+  const incrementStep = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // e.preventDefault();
+    console.log("Next...");
+    if (currentStep === steps.length) return;
+    setCurrentStep(prevState => prevState + 1);
+    console.log(currentStep);
   }
-    const incrementStep = (e: React.MouseEvent<HTMLButtonElement>) => {
-      // e.preventDefault();
-      console.log("Next...");
 
-      if (currentStep === steps.length) return;
+  const decrementStep = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // e.preventDefault();
+    console.log("Prev...");
+    if (currentStep == 1) return;
+      
+    setCurrentStep(prevState => prevState - 1);
+    console.log(currentStep);
+  }
 
-      setCurrentStep(prevState => prevState + 1);
-      console.log(currentStep);
-    }
-    const decrementStep = (e: React.MouseEvent<HTMLButtonElement>) => {
-      // e.preventDefault();
-      console.log("Prev...");
-
-      if (currentStep == 1) return;
-        
-      setCurrentStep(prevState => prevState - 1);
-      console.log(currentStep);
-    }
-
-    const onDataSubmit = (data: FieldValues) => {
-      console.log(data);
-    };
+  const onDataSubmit = (data: FieldValues) => {
+    // data submission to the server takes place here...
+    console.log(data);
+  };
 
   return (
     <div className='min-h-screen flex flex-col items-center justify-center'>
@@ -145,7 +126,11 @@ const page = () => {
             steps={ steps }
             currentStep={ currentStep }
           />
-          { displayStep(currentStep) }
+          {/* { displayStep(currentStep) } */}
+          {currentStep === 1 && <PersonalInfo register={register} errors={errors}/>}
+          {currentStep === 2 && <ContactInfo register={register} errors={errors}/>}
+          {currentStep === 3 && <PasswordInfo register={register} errors={errors}/>}
+          {currentStep === 4 && <FinishForm register={register} errors={errors}/>}
 
           <div className="btns-container">
             {currentStep !==1 &&    
@@ -164,7 +149,7 @@ const page = () => {
             />
             {/* <Link href={'/forgot-password'} className='text-center my-2 hover:underline text-white'>Forgot Password?</Link> */}
           </div>
-          <pre>{JSON.stringify(watch())}</pre>
+          {/* <pre>{JSON.stringify(watch())}</pre> */}
         </form>
     </div>
   )

@@ -2,7 +2,7 @@
 
 .step {
     // border: 2px solid red;
-    @apply relative flex flex-col justify-center items-center w-36 select-none font-semibold;
+    @apply relative flex flex-col justify-center items-center w-36 select-none font-semibold; 
 
     &:not(:first-child)::before {
         background-color: $txt-color-secondary;
@@ -17,14 +17,20 @@
 }
 
 .step-idx {
-    width: 32px;
-    height: 32px;
-    line-height: 32px;
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
     border: 2px solid $secondary-color;
     color: $txt-color-primary;
     background-color: $txt-color-primary-inv;
     @apply rounded-full border-2 mx-auto box-content;
     
+    @include md {
+        width: 32px;
+        height: 32px;
+        line-height: 32px;
+    }
+
     &.active {
         background-color: $accent-color;
         color: $txt-color-primary-inv;
@@ -39,6 +45,11 @@
 }
 
 .step-title {
+    font-size: $font-xxs;
     color: $txt-color-primary;
     @apply mt-2;
+
+    @include md {
+        font-size: $font-xs;
+    }
 }
