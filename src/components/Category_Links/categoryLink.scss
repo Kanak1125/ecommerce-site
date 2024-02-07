@@ -1,0 +1,16 @@
+@use './../../app/globals.scss' as *;
+
+.category-link {
+    width: max-content;
+    font-size: $font-xxs; 
+    border: 1px solid $txt-color-secondary;
+    @apply flex items-center gap-x-2 px-2 py-1 rounded;
+
+    @include md {
+        font-size: $font-xs;
+    }
+
+    @include lg {
+        font-size: $font-sm;
+    }
+}

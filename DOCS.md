@@ -4,3 +4,5 @@
 - npm install react-hook-form
 - npm install @hookform/resolvers/yup
 - npm install yup
+- npm install react-icons --save
+- npm i react-alice-carousel

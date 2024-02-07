@@ -1,0 +1,157 @@
+@use '../../app/globals.scss' as *;
+
+.header {
+    border-bottom: 1px solid $border-input-field;
+    
+    .navbar {
+        @apply grid grid-flow-col grid-rows-2 items-center justify-between overflow-hidden;
+
+        $gap: 20px;
+        $line-offset: $gap / 2;
+        $line-thickness: 2px;
+        $line-color: red;
+
+        gap: $gap;
+        
+        
+        // & > * {
+        //     @apply relative;
+        //     // border: 2px solid yellow;
+        //     // &::before,
+        //     &::after {
+        //         content: '';
+        //         position: absolute;
+        //         inline-size: 100vw;
+        //         block-size: $line-thickness;
+        //         inset-inline-start: 0;
+        //         inset-block-start: $line-offset * (-1);
+        //         background-color: $line-color;
+        //         z-index: 1;
+        //     }
+        // }
+    }
+
+    a {
+        width: max-content;
+        @apply row-start-1 col-start-1;
+    }
+
+    .search-form {
+        font-size: $font-sm;
+        @apply row-start-2 col-start-2 col-end-4 relative flex-1 z-20 ;
+
+        .search-input-field {
+            border: 1px solid $border-input-field;
+            @apply py-2 px-3 rounded w-full outline-none min-w-[50px] transition-all duration-300 ease-in-out;
+
+            &:focus {
+                border: 1px solid $txt-color-primary;
+                @apply box-shadow;
+            }
+        }
+    }
+
+    .search-icon {
+        @apply absolute top-3 right-3 transition-all duration-300 ease-in-out; 
+
+        &:hover {
+            @apply scale-105;
+        }
+    }
+
+    .utility-nav {
+        width: max-content;
+        font-size: $font-xs;
+        color: $secondary-color;
+        
+        @apply row-start-1 col-end-4 flex gap-x-4;
+
+        & > * {
+            // border-2 border-red-500
+            @apply 
+            inline-flex items-center gap-x-2;
+        }
+
+        .icon {
+            @apply overflow-visible;
+        }
+    }
+
+    .nav-links {
+        @apply hidden;
+    }
+
+    .call-support {
+        @apply hidden;
+    }
+
+    @include md {
+        .search-form {
+            font-size: $font-md;
+            @apply row-start-1 col-start-2 col-end-5;
+        }
+        
+        .utility-nav {
+            font-size: $font-sm;
+            @apply row-start-1 col-start-5 col-end-6;
+        }
+        
+        .nav-links {
+            font-size: $font-xs;
+            @apply flex row-start-2 col-start-1 col-end-5 gap-x-4;
+
+            & > a {
+                // border: 1px solid blue;
+                @apply opacity-75 transition-all duration-300;
+
+                &:hover {
+                    @apply opacity-100;
+                }
+            }
+        }
+
+        .call-support {
+            width: max-content;
+            @apply flex ml-auto items-center gap-x-2 text-center;
+
+            .call-icon {
+                font-size: 32px;
+            }
+
+            h4 {
+                font-size: $font-md;
+                @apply font-bold;
+            }
+
+            p {
+                font-size: $font-xs;
+            }
+        }
+    }
+
+    @include lg {
+        .nav-links {
+            font-size: $font-sm;
+            @apply gap-x-6;
+        }
+    }
+}
+
+.logo {
+    width: 60px;
+    height: auto;
+    // @apply py-2;
+
+    @include md {
+        // width and height for the larger screen sizes...
+        width: 80px;
+    }
+    
+    @include lg {
+        // @apply p-3;
+    }
+}
+
+.hamburger-menu-icon {
+    width: max-content;
+}

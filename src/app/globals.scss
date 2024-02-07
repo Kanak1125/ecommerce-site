@@ -8,6 +8,7 @@ $accent-color: hsl(4, 86%, 63%);
 $txt-color-primary: $secondary-color;
 $txt-color-secondary: hsl(0, 0%, 62%);
 $txt-color-primary-inv: hsl(0, 0%, 100%);
+$border-input-field: $txt-color-secondary;
 
 // color on hovers...
 $accent-color-on-hover: hsl(4, 86%, 55%);
@@ -38,8 +39,16 @@ body {
 }
 
 // utility classes...
+.centered-container {
+  min-height: 100dvh;
+}
+
 .text-accent-color {
   color: $accent-color;
+}
+
+.box-shadow {
+  box-shadow: $secondary-color 0px 0.25px 4px;
 }
 
 @mixin md{

@@ -1,7 +1,7 @@
 'use client'
 
 import Stepper from '@/components/Stepper/Stepper'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './signup.scss';
 import Button from '@/components/Button/Button';
 import PersonalInfo from '@/components/steps/PersonalInfo';
@@ -12,6 +12,7 @@ import { FieldValues, useForm } from "react-hook-form";
 import { ObjectSchema } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema_PersonalInfo, schema_ContactInfo, schema_PasswordInfo, schema_Agreement } from '@/schema/schema_signup';
+import CenteredContainer from '@/components/CenteredContainer';
 
 // need to work out on the back button of the signup page...
 // FIX: validation errors...
@@ -19,25 +20,27 @@ import { schema_PersonalInfo, schema_ContactInfo, schema_PasswordInfo, schema_Ag
 const page = () => {
   const steps = ['Personal', 'Contact', 'Password', 'Finish'];
   const [currentStep, setCurrentStep] = useState(1);
+  const [currentSchema, setCurrentSchema] = useState<ObjectSchema<FieldValues, any, any, any>>(schema_PersonalInfo);
   
-  let currentSchema: ObjectSchema<FieldValues, any, any, any>;
-  switch (currentStep) {
+  // let currentSchema: ObjectSchema<FieldValues, any, any, any>;
+  const getCurrentSchema = () => {
+    switch (currentStep) {
     case 1:
-      currentSchema = schema_PersonalInfo;
-      break;
+      return schema_PersonalInfo;
     case 2: 
-      currentSchema = schema_ContactInfo;
-      break;
+      return schema_ContactInfo;
     case 3:
-      currentSchema = schema_PasswordInfo;
-      break;
+      return schema_PasswordInfo;
     case 4:
-      currentSchema = schema_Agreement;
-      break;
+      return schema_Agreement;
     default: 
-      currentSchema = schema_PersonalInfo;
-      break;
+      return schema_PersonalInfo;
+    }
   }
+
+  useEffect(() => {
+    setCurrentSchema(getCurrentSchema())
+  }, [currentStep]);
   // integrate yup with useForm hook...
   const { 
     register, 
@@ -54,38 +57,6 @@ const page = () => {
   });
 
   console.log(errors);
-
-  // const displayStep = (step: number) => {
-  //   switch(step) {
-  //     case 1:
-  //       return <PersonalInfo 
-  //         // schema={schema}
-  //         register={register}
-  //         errors={errors}
-  //       />
-  //     case 2:
-  //       return <ContactInfo 
-  //         register={register}
-  //         errors={errors}
-  //       />
-  //     case 3:
-  //       return <PasswordInfo 
-  //         register={register}
-  //         errors={errors}
-  //       />
-  //     case 4:
-  //       return <FinishForm 
-  //         register={register}
-  //         errors={errors}
-  //       />
-  //     default: 
-  //       return <PersonalInfo 
-  //         // schema={schema}
-  //         register={register}
-  //         errors={errors}
-  //       />
-  //   }
-  // }
   
   const incrementStep = (e: React.MouseEvent<HTMLButtonElement>) => {
     // e.preventDefault();
@@ -107,10 +78,11 @@ const page = () => {
   const onDataSubmit = (data: FieldValues) => {
     // data submission to the server takes place here...
     console.log(data);
+    console.log("Submitted...");
   };
 
   return (
-    <div className='min-h-screen flex flex-col items-center justify-center'>
+    <CenteredContainer>
         <h2 className='heading-signup mb-6'>Sign up</h2>
         <form 
           onSubmit={handleSubmit(onDataSubmit)}
@@ -126,7 +98,7 @@ const page = () => {
             steps={ steps }
             currentStep={ currentStep }
           />
-          {/* { displayStep(currentStep) } */}
+
           {currentStep === 1 && <PersonalInfo register={register} errors={errors}/>}
           {currentStep === 2 && <ContactInfo register={register} errors={errors}/>}
           {currentStep === 3 && <PasswordInfo register={register} errors={errors}/>}
@@ -151,7 +123,7 @@ const page = () => {
           </div>
           {/* <pre>{JSON.stringify(watch())}</pre> */}
         </form>
-    </div>
+    </CenteredContainer>
   )
 }
 

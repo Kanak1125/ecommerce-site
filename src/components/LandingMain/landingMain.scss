@@ -1,0 +1,82 @@
+@use './../../app/globals.scss' as *;
+
+.category-section {
+    @apply my-6;
+}
+.category {
+    @apply inline-flex gap-4 flex-wrap py-3;
+}
+
+.card-section {
+    @apply my-6 py-2 flex gap-4 flex-wrap;
+}
+
+.card-container {
+    width: 260px;
+    height: 120px;
+    background-size: cover;
+    @apply rounded-md;
+
+    .bg-watch {
+        background: url('https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d3Jpc3QlMjB3YXRjaHxlbnwwfHwwfHx8MA%3D%3D') no-repeat center right;
+    }
+    .bg-bag {
+        background: url('https://images.unsplash.com/photo-1612979022617-b498c5ffbe6d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGJhZ3BhY2t8ZW58MHx8MHx8fDA%3D') no-repeat center right;
+    }
+    .bg-shoes {
+        background: url('https://images.unsplash.com/photo-1543508282-6319a3e2621f?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHNob2VzfGVufDB8fDB8fHww') no-repeat center right;
+    }
+    .overlay {
+        width: 60%;
+        background-color: rgba(255, 255, 255, 0.6);
+        // backdrop-filter: blur(1px);
+        box-shadow: white 0 0 50px;
+        @apply py-4 pl-2 h-full flex flex-col justify-center gap-3;
+    }
+    h2 {
+        font-size: $font-sm;
+        line-height: 20px;
+        @apply uppercase;
+    }
+    button {
+        background-color: $accent-color;
+        font-size: $font-xxs;
+        color: $txt-color-primary-inv;
+        width: 100px;
+        height: 24px;
+        @apply rounded-sm;
+    }
+
+    @include md {
+        width: 300px;
+        height: 140px;
+
+        .overlay {
+            @apply py-5 gap-4;
+        }
+
+        h2 {
+            line-height: 22px;
+        }
+    }
+
+    @include lg {
+        width: 340px;
+        height: 155px;
+
+        .overlay {
+            @apply py-6 pr-2 gap-6;
+        }
+
+        h2 {
+            font-size: $font-md;
+            line-height: 22px;
+        }
+
+        button {
+            font-size: $font-xs;
+            width: 120px;
+            height: 32px;
+        }
+    }
+}
