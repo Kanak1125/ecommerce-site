@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import "./stepper.scss";
 
 const Stepper = ( props: {
-  steps: string[];
+  steps: {
+    name: string,
+    fields?: string[],
+  }[];
   currentStep: number;
 } ) => {
   // steps may be added LayoutRouter...
@@ -16,7 +19,7 @@ const Stepper = ( props: {
         ${currentStep - 1 > i && 'visited'}
         `
         }>{i + 1}</div>
-      <p className='step-title'>{ step }</p>
+      <p className='step-title'>{ step.name }</p>
     </div>
   ));
 

@@ -8,7 +8,7 @@ export const schema_PersonalInfo = object().shape({
 
 export const schema_ContactInfo = object().shape({
     email: string().required("Please enter your email").email(),
-    phone: number().required("Enter your phone number"),
+    phone: number().required("Enter your phone number").typeError("Can only be numbers"),
 });
 
 export const schema_PasswordInfo = object().shape({

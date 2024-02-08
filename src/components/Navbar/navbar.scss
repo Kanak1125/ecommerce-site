@@ -83,6 +83,10 @@
 
     .call-support {
         @apply hidden;
+
+        h4 {
+            color: $txt-color-primary;
+        }
     }
 
     @include md {

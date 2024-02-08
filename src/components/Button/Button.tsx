@@ -7,21 +7,16 @@ const Button = (props: {
     isValid: boolean;
     isSubmitting: boolean;
 }) => {
-    const {text, handleBtnClick, isValid, isSubmitting} = props;
-  return (
+    const {text, handleBtnClick, isSubmitting} = props;
+
+    return (
     <button 
         type="submit" 
         value={text} 
         className={`btn ${text == 'Next' && 'next-btn'}`}
         onClick={(e) => handleBtnClick(e)}
-        disabled={isSubmitting || !isValid}
+        disabled={text === 'Finish' && isSubmitting}
     >{ text }</button>
-    // <input 
-    //     type="submit" 
-    //     value={text} 
-    //     className={`btn ${text == 'Next' && 'next-btn'}`}
-    //     onClick={(e) => handleBtnClick(e)}
-    // />
   )
 }
 

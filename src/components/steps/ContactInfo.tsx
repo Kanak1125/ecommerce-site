@@ -1,18 +1,27 @@
 import React from 'react'
+import Button from '../Button/Button';
 
 const ContactInfo = (props: {
+    steps: {
+      name: string,
+      fields?: string[],
+    }[];
+    currentStep: number;
+    incrementStep: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    decrementStep: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    isValid: boolean;
+    isSubmitting: boolean;
     register: any;  // this needs to be considered...
     errors: any
   }) => {
 
-    const { register, errors } = props;
+    const { register, errors, currentStep, steps, incrementStep, decrementStep, isValid, isSubmitting } = props;
   return (
     <>
         <h2 className='subheading'>Contact Information</h2>
         <label htmlFor="email" className='label'>Email: </label> 
         <input 
           type="email"
-          // ref={emailRef}
           {...register("email")}
           id="email" 
           placeholder='example@mail.com'
@@ -22,12 +31,28 @@ const ContactInfo = (props: {
         <label htmlFor="ph-number" className='label'>Phone: </label> 
         <input 
           type="telephone"
-          // ref={emailRef}
           {...register("phone")}
           id="ph-number" 
           className='input-fields'
         />
         <p className="text-red-400 text-sm my-1">{errors.phone?.message}</p>
+
+        <div className="btns-container">
+            {currentStep !==1 &&    
+              <Button 
+              text="Back"
+              handleBtnClick= {decrementStep}
+              isValid={isValid}  // for backing the form we don't need to validate it...
+              isSubmitting={isSubmitting}
+              />
+            }
+            <Button 
+            text={currentStep == steps.length ? 'Finish' : 'Next'}
+            handleBtnClick= {incrementStep}
+            isValid={isValid}
+            isSubmitting={isSubmitting}
+            />
+          </div>
     </>
   )
 }
