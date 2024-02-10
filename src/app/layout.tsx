@@ -1,5 +1,7 @@
-import './globals.scss'
-import { Noto_Sans } from 'next/font/google'
+import './globals.scss';
+import { Noto_Sans } from 'next/font/google';
+import TanstackProvider from '@/utils/providers/TanstackProvider';
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const noto = Noto_Sans({
   weight: ['400', '700'],
@@ -18,7 +20,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${noto.className}`}>{children}</body>
+      <body className={`${noto.className}`}>
+        <TanstackProvider>
+          {children}
+        {/* <ReactQueryDevtools /> */}
+        </TanstackProvider>
+      </body>
     </html>
   )
 }

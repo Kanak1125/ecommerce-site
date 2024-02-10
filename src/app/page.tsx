@@ -14,7 +14,9 @@ export default function Home() {
           isHamMenuActive={isHamMenuActive}
           setIsHamMenuActive={setIsHamMenuActive}
         />
-        <LandingMain />
+        <LandingMain 
+          // data={data}
+        />
       </div>
     </>
   );

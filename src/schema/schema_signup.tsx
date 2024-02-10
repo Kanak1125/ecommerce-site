@@ -22,6 +22,12 @@ export const schema_PasswordInfo = object().shape({
 });
 
 export const schema_Agreement = object().shape({
-    terms_and_conditions: boolean().required("You must agree to the terms"),
-    privacy_policy: boolean().required("You must agree our privacy policy"),
+    terms_and_conditions: boolean()
+    .required("The terms and conditions must be accepted.")
+    .oneOf([true], "The terms and conditions must be accepted."),
+    // terms_and_conditions: boolean().required("You must agree to the terms"),
+    // privacy_policy: boolean().required("You must agree our privacy policy"),
+    privacy_policy: boolean()
+    .required("The privacy policy must be accepted.")
+    .oneOf([true], "The privacy policy must be accepted."),
 });

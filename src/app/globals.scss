@@ -51,6 +51,10 @@ body {
   box-shadow: $secondary-color 0px 0.25px 4px;
 }
 
+.box-shadow-light {
+  box-shadow: $secondary-color 0px 0.25px 1px;
+}
+
 @mixin md{
   @media screen and (min-width: $md) {
     @content;

@@ -1,23 +1,15 @@
 @use './../../app/globals.scss' as *;
 
-.category-section {
-    @apply my-6;
-}
 .category {
     @apply inline-flex gap-4 flex-wrap py-3;
 }
 
 .card-section {
     @apply my-6 py-2 flex gap-4 flex-wrap;
-}
-
-.card-container {
-    width: 260px;
-    height: 120px;
-    background-size: cover;
-    @apply rounded-md;
 
     .bg-watch {
+        // background-color: red !important;
+        z-index: 11;
         background: url('https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d3Jpc3QlMjB3YXRjaHxlbnwwfHwwfHx8MA%3D%3D') no-repeat center right;
     }
     .bg-bag {
@@ -26,6 +18,14 @@
     .bg-shoes {
         background: url('https://images.unsplash.com/photo-1543508282-6319a3e2621f?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHNob2VzfGVufDB8fDB8fHww') no-repeat center right;
     }
+}
+
+.card-container {
+    width: 260px;
+    height: 120px;
+    background-size: cover;
+    @apply rounded-md;
+
     .overlay {
         width: 60%;
         background-color: rgba(255, 255, 255, 0.6);
@@ -61,7 +61,7 @@
     }
 
     @include lg {
-        width: 340px;
+        width: 320px;
         height: 155px;
 
         .overlay {

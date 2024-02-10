@@ -13,7 +13,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { schema_PersonalInfo, schema_ContactInfo, schema_PasswordInfo, schema_Agreement } from '@/schema/schema_signup';
 import CenteredContainer from '@/components/CenteredContainer';
 
-// need to work out on the back button of the signup page...
 // Need: To include agreements to validation as well...
 
 const page = () => {
@@ -31,12 +30,13 @@ const page = () => {
   },
   {
     name: 'Finish',
+    // problem with the following validation...
+    fields: ['terms_and_conditions', 'privacy_policy'],
   }];
 
   const [currentStep, setCurrentStep] = useState(1);
   const [currentSchema, setCurrentSchema] = useState<ObjectSchema<FieldValues, any, any, any>>(schema_PersonalInfo);
   
-  // let currentSchema: ObjectSchema<FieldValues, any, any, any>;
   const getCurrentSchema = () => {
     switch (currentStep) {
     case 1:
@@ -78,7 +78,7 @@ const page = () => {
     //   confirm_password: "",
     // },
     resolver: yupResolver(currentSchema),
-    mode: "all",
+    mode: "onBlur" || "onSubmit",
   });
 
   console.log(errors);
@@ -89,32 +89,26 @@ const page = () => {
       shouldFocus: true,
     })
 
-    console.log(output);
-    if (!output || (currentStep === steps.length)) return;
+    // if (!output || (currentStep === steps.length)) return;
+    if (!output) return;
 
     if (currentStep === steps.length) {
       await handleSubmit(onDataSubmit)();
       reset();
     }
 
-    console.log("Next...");
     setCurrentStep(prevState => prevState + 1);
-    console.log(currentStep);
   }
 
   const decrementStep = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("Prev...");
     if (currentStep == 1) return;
-      
     setCurrentStep(prevState => prevState - 1);
-    console.log(currentStep);
   }
 
   const onDataSubmit = (data: FieldValues) => {
     // data submission to the server takes place here...
     console.log(data);
     console.log("Submitted...");
-    reset();
   };
 
   return (

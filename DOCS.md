@@ -6,3 +6,5 @@
 - npm install yup
 - npm install react-icons --save
 - npm i react-alice-carousel
+- npm i axios
+- npm i @tanstack/react-query @tanstack/react-query-devtools

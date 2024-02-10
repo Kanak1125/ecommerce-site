@@ -1,0 +1,14 @@
+@use './.././../app/globals.scss' as *;
+
+.card {
+    @apply bg-white w-full rounded-lg p-6 mx-auto transition-all duration-300 ease-in-out relative overflow-hidden box-shadow-light;
+
+    .fav-icon-container {
+        @apply absolute right-5 bg-white p-2 rounded-full translate-y-[-24%] opacity-0 transition-all ease-out duration-300;
+    }
+
+    .card-info {
+        color: $txt-color-primary;
+        @apply pt-5;
+    }
+}
