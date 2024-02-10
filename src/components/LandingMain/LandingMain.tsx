@@ -15,6 +15,7 @@ import Card from '../product_card/Card';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { Item } from '@/types/type';
+import CardSkeletonLoader from '../CardSkeletonLoader/CardSkeletonLoader';
 
 const categories = [
   {
@@ -92,11 +93,11 @@ const LandingMain = () => {
           <h2 className='text-2xl font-bold'>All Products</h2>
           <div className='grid grid-cols-1 md:grid-cols-3 gap-10 py-8'>
           {
-            // isLoading ? 
-            // Array(11).fill(0).map((el, i) => (
-            //   <CardSkeletonLoader key={i}/>
-            // ))
-            // : */}
+            isLoading ? 
+            Array(11).fill(0).map((el, i) => (
+              <CardSkeletonLoader key={i}/>
+            ))
+            :
             data?.map((item: Item) => {
               const {id, image, title, price} = item;
               return (
