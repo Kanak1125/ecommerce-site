@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './landingMain.scss';
 import Carousel from '../Carousel/Carousel';
 import CategoryLinks from '../Category_Links/CategoryLinks';
@@ -16,6 +16,7 @@ import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { Item } from '@/types/type';
 import CardSkeletonLoader from '../CardSkeletonLoader/CardSkeletonLoader';
+import { useProductStore } from '@/state/store';
 
 const categories = [
   {
@@ -58,6 +59,8 @@ const cards = [
 ];
 
 const LandingMain = () => {
+  const { products, setProducts } = useProductStore();  // access the products state from the global state...
+
   const { data, isLoading, error } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
@@ -66,7 +69,12 @@ const LandingMain = () => {
     }
   });
 
-  console.log(data);
+  useEffect(() => {
+    if (data) {
+      setProducts(data);
+    }
+  }, [data, setProducts]);
+
   const categoryLinks = categories.map(item => (
     <CategoryLinks>
       {item.icon}
@@ -90,7 +98,7 @@ const LandingMain = () => {
           { cardItems }
        </div>
        <div className="new-arrivals">
-          <h2 className='text-2xl font-bold'>All Products</h2>
+          <h2 className='text-2xl font-bold'>New Arrivals</h2>
           <div className='grid grid-cols-1 md:grid-cols-3 gap-10 py-8'>
           {
             isLoading ? 
@@ -98,7 +106,7 @@ const LandingMain = () => {
               <CardSkeletonLoader key={i}/>
             ))
             :
-            data?.map((item: Item) => {
+            products?.map((item: Item) => {
               const {id, image, title, price} = item;
               return (
                 <Card

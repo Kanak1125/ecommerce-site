@@ -8,3 +8,4 @@
 - npm i react-alice-carousel
 - npm i axios
 - npm i @tanstack/react-query @tanstack/react-query-devtools
+- npm install zustand
