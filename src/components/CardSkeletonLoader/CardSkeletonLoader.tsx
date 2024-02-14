@@ -1,8 +1,9 @@
 import React from 'react'
+import './CardSkeletonLoader.scss';
 
 const CardSkeletonLoader = () => {
   return (
-    <div className='w-full rounded-lg p-6 mx-auto card-shadow transition-all duration-300 ease-in-out relative group overflow-hidden animate-pulse'>
+    <div className='card-skeleton-loader-container group'>
       <div className='img-container w-full h-[260px] bg-slate-200 rounded-lg'></div>
       <div className="card-info pt-5 text-accent">
           <p className='h-6 rounded-full bg-slate-200'></p>

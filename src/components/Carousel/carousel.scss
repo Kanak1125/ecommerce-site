@@ -1,9 +1,11 @@
 @use '../../app/globals.scss' as *;
 
 .alice-carousel__wrapper {
-    @apply rounded-md;
+    @apply rounded-md ;
 }
-.alice-carousel__stage-item {
+
+// the following need to be fixed here...
+.container > .alice-carousel .alice-carousel__stage-item {
     img {
         width: 100%;
         height: 200px;

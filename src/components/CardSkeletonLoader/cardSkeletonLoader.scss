@@ -1,0 +1,12 @@
+@use './.././../app/globals.scss' as *;
+
+.card-skeleton-loader-container{
+    min-width: 240px;
+    @apply w-full rounded-lg p-6 mx-auto transition-all duration-300 ease-in-out relative overflow-hidden animate-pulse;
+}
+
+@include md {
+    .card-skeleton-loader-container {
+        min-width: 300px;
+    }
+}

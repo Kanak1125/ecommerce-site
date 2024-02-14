@@ -24,9 +24,9 @@ const Card = (props: {
       </Link>
       <div className="card-info">
           <Link href={`/products/${id}`}>
-            <h3 className='text-xl font-semibold line-clamp-2'>{title}</h3>
+            <h3 className=' font-medium line-clamp-2'>{title}</h3>
           </Link>
-          <p className='mt-4 text-lg font-bold'>
+          <p className='price'>
             {formatCurrency(price)}
             {/* {(price)} */}
           </p>

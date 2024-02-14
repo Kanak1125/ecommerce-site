@@ -26,6 +26,57 @@
     }
 }
 
+// new-arrival carousel...
+.new-arrival-items-container {
+    .alice-carousel__prev-btn, 
+    .alice-carousel__next-btn {
+        width: 32px;
+        height: 32px;
+        // margin: 0 !important;
+        // padding: 0 !important;
+        background: $accent-color;
+        color: $txt-color-primary;
+        font-size: $font-md;
+        line-height: $font-md;
+        top: 50%;
+        transform: translateY(-50%);
+        @apply m-0 p-0 absolute rounded-full font-bold;
+    }
+
+    .alice-carousel__prev-btn-wrapper,
+    .alice-carousel__next-btn-wrapper {
+        // width: 32px;
+        // height: 32px;
+        @apply w-full h-full text-center;
+    }
+
+    .alice-carousel__prev-btn {
+        left: 10px;
+    }
+    .alice-carousel__next-btn {
+        right: 10px;
+    }
+
+    .alice-carousel__prev-btn-item:hover, 
+    .alice-carousel__next-btn-item:hover {
+        color: $txt-color-primary;
+    }
+
+    @include md {
+        .alice-carousel__prev-btn,
+        .alice-carousel__next-btn {
+            width: 40px;
+            height: 40px;
+            font-size: $font-lg;
+            line-height: $font-lg;
+        }
+    }
+}
+
+.new-arrival-items-container {
+    @apply py-8 inline-flex gap-x-6 overflow-x-hidden w-full  relative;
+}
+
 .card-container {
     width: 260px;
     height: 120px;
@@ -44,6 +95,7 @@
         line-height: 20px;
         @apply uppercase;
     }
+
     button {
         background-color: $accent-color;
         font-size: $font-xxs;
