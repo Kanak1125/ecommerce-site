@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react'
+import React, { useState } from 'react'
 import './navbar.scss';
 
 // icons
@@ -10,12 +10,10 @@ import { PiHeadsetFill } from "react-icons/pi";
 
 import Link from 'next/link';
 
-const Navbar = (props: {
-    isHamMenuActive: boolean;
-    setIsHamMenuActive: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
+const Navbar = () => {
 
-    const { isHamMenuActive, setIsHamMenuActive } = props;
+  const [isHamMenuActive, setIsHamMenuActive] = useState(false);
+
 
   return (
     <header className='w-full py-4 header'>
@@ -83,11 +81,11 @@ const Navbar = (props: {
             {/* header bottom... */}
             
             <nav className='nav-links'>
-              <Link href={'/'}>New Arrivals</Link>
-              <Link href={'/'}>Women</Link>
-              <Link href={'/'}>Men</Link>
-              <Link href={'/'}>Sale</Link>
-              <Link href={'/'}>About</Link>
+              <Link href={'/category/new-arrivals'}>New Arrivals</Link>
+              <Link href={'/category/women'}>Women</Link>
+              <Link href={'/category/men'}>Men</Link>
+              <Link href={'/category/sale'}>Sale</Link>
+              <Link href={'/about'}>About</Link>
               <Link href={'/'}>Blog</Link>
               <Link href={'/'}>Contact Us</Link>
             </nav>

@@ -55,6 +55,11 @@ body {
   box-shadow: $secondary-color 0px 0.25px 1px;
 }
 
+.heading {
+  color: $txt-color-primary;
+  @apply text-2xl font-bold capitalize;
+}
+
 @mixin md{
   @media screen and (min-width: $md) {
     @content;

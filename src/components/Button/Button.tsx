@@ -5,15 +5,16 @@ const Button = (props: {
     text: string;
     handleBtnClick: React.MouseEventHandler<HTMLButtonElement>;
     isValid: boolean;
+    align: string;
     isSubmitting: boolean;
 }) => {
-    const {text, handleBtnClick, isSubmitting} = props;
+    const {text, handleBtnClick, isSubmitting, align} = props;
 
     return (
     <button 
         type="submit" 
         value={text} 
-        className={`btn ${text == 'Next' && 'next-btn'}`}
+        className={`btn ${align == 'right' && 'next-btn'}`}
         onClick={(e) => handleBtnClick(e)}
         disabled={text === 'Finish' && isSubmitting}
     >{ text }</button>

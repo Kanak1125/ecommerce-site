@@ -41,6 +41,7 @@ const ContactInfo = (props: {
             {currentStep !==1 &&    
               <Button 
               text="Back"
+              align=''
               handleBtnClick= {decrementStep}
               isValid={isValid}  // for backing the form we don't need to validate it...
               isSubmitting={isSubmitting}
@@ -48,6 +49,7 @@ const ContactInfo = (props: {
             }
             <Button 
             text={currentStep == steps.length ? 'Finish' : 'Next'}
+            align='right'
             handleBtnClick= {incrementStep}
             isValid={isValid}
             isSubmitting={isSubmitting}

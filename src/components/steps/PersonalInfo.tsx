@@ -45,6 +45,7 @@ const PersonalInfo = ( props: {
         <div className="btns-container">
             <Button 
             text={currentStep == steps.length ? 'Finish' : 'Next'}
+            align='right'
             handleBtnClick= {incrementStep}
             isValid={isValid}
             isSubmitting={isSubmitting}

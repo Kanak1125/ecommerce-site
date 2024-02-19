@@ -55,6 +55,7 @@ const FinishForm = (props: {
       {currentStep !==1 &&    
         <Button 
         text="Back"
+        align=''  // defaults to left...
         handleBtnClick= {decrementStep}
         isValid={isValid}  // for backing the form we don't need to validate it...
         isSubmitting={isSubmitting}
@@ -62,6 +63,7 @@ const FinishForm = (props: {
       }
       <Button 
       text='Create'
+      align='right'
       handleBtnClick= {incrementStep}
       isValid={isValid}
       isSubmitting={isSubmitting}

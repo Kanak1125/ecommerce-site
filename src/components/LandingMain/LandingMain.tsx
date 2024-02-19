@@ -75,6 +75,7 @@ const LandingMain = () => {
   const products = useProductStore((state) => state.products);  // access the products state from the global state...
   const setProducts = useProductStore((state) => state.setProducts);
 
+  
   const { data, isLoading, error } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
@@ -82,11 +83,12 @@ const LandingMain = () => {
       return response.data;
     }
   });
-
+  
   useEffect(() => {
     if (data) {
       setProducts(data);
     }
+    console.log(products);
   }, [data, setProducts]);
 
   const categoryLinks = categories.map(item => (
@@ -117,9 +119,15 @@ const LandingMain = () => {
           price={price}
       />)
   });
+
+  if (error) {
+    return <div>Error fetching the data</div>;
+  }
   
   return (
-    <main className="container max-w-[1200px] border-2 border-red-800 mx-auto py-4">
+    <main className="container max-w-[1200px] 
+    border-2 border-red-800 
+    mx-auto py-4">
        <Carousel 
         items={images}
         disableButtonsControls={true}

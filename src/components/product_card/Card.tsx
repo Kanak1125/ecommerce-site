@@ -13,7 +13,7 @@ const Card = (props: {
   const {id, imgUrl, title, price} = props;
 
   return (
-    <div className='card group'>
+    <div className='card group' title={title}>
       <div className='fav-icon-container group-hover:translate-y-0 group-hover:opacity-100'>
         <BsHeart size={24}/>
       </div>
@@ -24,7 +24,7 @@ const Card = (props: {
       </Link>
       <div className="card-info">
           <Link href={`/products/${id}`}>
-            <h3 className=' font-medium line-clamp-2'>{title}</h3>
+            <h3 className=' font-medium line-clamp-1'>{title}</h3>
           </Link>
           <p className='price'>
             {formatCurrency(price)}
