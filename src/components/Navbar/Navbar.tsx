@@ -17,7 +17,7 @@ const Navbar = () => {
 
   return (
     <header className='w-full py-4 header'>
-        <div className="container max-w-[1200px] mx-auto navbar">
+        <div className="container max-w-[1200px] mx-auto navbar ">
             <Link href={'/'}>
                 <img src="/images/logo.svg" alt="" className='logo'/>
             </Link>
@@ -34,7 +34,7 @@ const Navbar = () => {
             //   value={searchTerm}
             />
             <button type="submit" className='search-icon'>
-              <BsSearch/>
+              <BsSearch className='icon'/>
             </button>
             {/* search result box */}
             {/* {isSearching &&  */}

@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form';
 import Button from '@/components/Button/Button';
 import { object, string, ref, ObjectSchema } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
 const page = () => {
     // schema definition for client-side validation while signing up...
@@ -28,18 +30,39 @@ const page = () => {
         watch,
         trigger,
         reset,
+        getValues,
     } = useForm({
         resolver: yupResolver(schema),
     });
 
+    // const mutation = useMutation({
+    //     mutationFn: (newUser) => {
+    //         return axios.post('/some url', newUser);
+    //     }
+    // })
+
+    const { data, isLoading, error } = useQuery({
+        queryKey: ["admin"],
+        queryFn: async () => {
+            const response = await axios.get("http://localhost:8000/admin");
+            return response.data;
+        } 
+    });
 
     const handleAdminLogin = async () => {
         const output = await trigger(['email', 'password'], {
             shouldFocus: true,
         });
+
+        // mutation.mutate({})
         
         if (!output) return;
-        console.log("Submitted successfully...");
+
+        if (data[0].email === getValues('email') && data[0].password === getValues('password')) {
+            console.log("Admin login successful...");
+        } else {
+            console.log("No  such registered admin here...");
+        }
     }
 
   return (

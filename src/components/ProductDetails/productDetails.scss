@@ -1,0 +1,64 @@
+@use '../../../src/app/globals.scss' as *;
+
+.product-detail-heading {
+    color: $secondary-color;
+    @apply text-2xl font-bold;
+}
+
+.product-price {
+    color: $accent-color;
+    @apply my-5 font-bold;
+}
+
+.product-ratings {
+    color: goldenrod;
+    @apply flex my-3;
+}
+
+.product-availability {
+    font-size: $font-xs;
+    @apply mb-5 font-semibold;
+}
+
+.product-description {
+    font-size: $font-xxs;
+
+    @include md {
+        font-size: $font-xs;
+    }
+}
+
+.qty-update-btn {
+    border: 2px solid $secondary-color;
+    @apply w-[32px] h-[32px] inline-flex rounded items-center justify-center font-bold transition-all;
+
+    &:hover {
+        background-color: $secondary-color;
+        color: $primary-color;
+    }
+}
+
+.qty-number {
+    border: 2px solid $secondary-color;
+    @apply mx-2 rounded hide-scroll text-center border-2 outline-none h-[32px];
+}
+
+.product-btn {
+    @apply mr-6 mt-4 w-[120px] h-10 rounded button-shadow;
+}
+.add-to-cart-btn {
+    background-color: $accent-color;
+    color: $txt-color-primary-inv;
+}
+
+.buy-now-btn {
+    border: 1px solid $accent-color;
+    color: $accent-color;
+
+    &:hover {
+        background-color: $accent-color;
+        color: $txt-color-primary-inv;
+    }
+}
+// bg-accent text-primary
+// bg-primary text-accent border-2 border-accent hover:bg-accent hover:text-primary

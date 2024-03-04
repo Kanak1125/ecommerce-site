@@ -37,25 +37,33 @@
     }
 
     .search-form {
-        font-size: $font-sm;
         @apply row-start-2 col-start-2 col-end-4 relative flex-1 z-20 ;
-
+        
         .search-input-field {
             border: 1px solid $border-input-field;
+            font-size: $font-xs;
             @apply py-2 px-3 rounded w-full outline-none min-w-[50px] transition-all duration-300 ease-in-out;
 
             &:focus {
                 border: 1px solid $txt-color-primary;
-                @apply box-shadow;
+                // @apply box-shadow;
             }
         }
     }
 
+    .icon {
+        width: 16px;
+        height: 16px;
+    }
+
     .search-icon {
-        @apply absolute top-3 right-3 transition-all duration-300 ease-in-out; 
+        @apply absolute top-[50%] right-3 transition-all duration-300 ease-in-out;
+        transform: translateY(-50%); 
 
         &:hover {
-            @apply scale-105;
+            & > * {
+                @apply scale-110;
+            }
         }
     }
 
@@ -91,8 +99,11 @@
 
     @include md {
         .search-form {
-            font-size: $font-md;
             @apply row-start-1 col-start-2 col-end-5;
+            
+            .search-input-field {
+                font-size: $font-sm;
+            }
         }
         
         .utility-nav {
@@ -142,13 +153,13 @@
 }
 
 .logo {
-    width: 60px;
+    width: 80px;
     height: auto;
     // @apply py-2;
 
     @include md {
         // width and height for the larger screen sizes...
-        width: 80px;
+        width: 100px;
     }
     
     @include lg {

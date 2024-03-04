@@ -17,7 +17,7 @@ const Card = (props: {
       <div className='fav-icon-container group-hover:translate-y-0 group-hover:opacity-100'>
         <BsHeart size={24}/>
       </div>
-      <Link href={`/products/${id}`}>
+      <Link href={`/product/${id}`}>
         <div className='w-full h-[260px] '>
             <img src={imgUrl} alt="" className='w-full h-full object-contain'/>
         </div>
