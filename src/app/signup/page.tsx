@@ -13,6 +13,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { schema_PersonalInfo, schema_ContactInfo, schema_PasswordInfo, schema_Agreement } from '@/schema/schema_signup';
 import CenteredContainer from '@/components/CenteredContainer';
 
+import signUp from '@/services/firebase/auth/signup';
+
 // Need: To include agreements to validation as well...
 
 const page = () => {
@@ -109,6 +111,8 @@ const page = () => {
     // data submission to the server takes place here...
     console.log(data);
     console.log("Submitted...");
+
+
   };
 
   return (
