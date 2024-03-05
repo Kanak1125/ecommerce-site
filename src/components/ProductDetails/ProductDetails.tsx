@@ -4,39 +4,42 @@ import { useQuery } from '@tanstack/react-query';
 // import Breadcrumbs from '../components/Breadcrumbs';
 import ProductSkeletonLoader from '@/components/ProductSkeletonLoader/ProductSkeletonLoader';
 // import { useShoppingCart } from '../context/ShoppingCartContext';
+import { useCartStore } from '@/state/store';
 import {BsStarFill, BsStarHalf} from 'react-icons/bs';
 import { formatCurrency } from '@/utils/formatCurrency';
 import './productDetails.scss';
 
-const ProductDetails = ({ id }: {
+const ProductDetails = ({ id: productID }: {
     id: string;
 }) => {
     // const { getItemQuantity, setItemQuantity } = useShoppingCart();
+    const getItemQuantity = useCartStore((set) => set.getItemQuantity);
+    const setItemQuantity = useCartStore((set) => set.setItemQuantity);
   
     const {isLoading, error, data, isFetching} = useQuery({
-      queryKey: [`product-${id}`],
+      queryKey: [`product-${productID}`],
       queryFn: async () => {
-        const response = await axios.get(`https://fakestoreapi.com/products/${id}`);
+        const response = await axios.get(`https://fakestoreapi.com/products/${productID}`);
         return response.data;
       },
       staleTime: 1000 * 60 * 10
     });
   
-    // const [quantity, setQuantity] = useState(getItemQuantity(parseInt(productID)) || 0);
+    const [quantity, setQuantity] = useState(getItemQuantity(parseInt(productID)) || 0);
   
     function incrementQuantity() {
-        // setQuantity((prevQuantity: number) => prevQuantity + 1);
+        setQuantity((prevQuantity: number) => prevQuantity + 1);
     }
   
     function decrementQuantity() {
-        // if (quantity === 0) return; 
-        // setQuantity((prevQuantity: number) => prevQuantity - 1);
+        if (quantity === 0) return; 
+        setQuantity((prevQuantity: number) => prevQuantity - 1);
     }
-    // function handleQuantity(e) {
-    //     const value = e.target.value;
-    //     const parsedValue = parseInt(value); // the value we get from the input field is string so parsing to INTEGER type...
-    //     setQuantity(!isNaN(parsedValue) ? parsedValue : value);
-    // }
+    function handleQuantity(e: any) {
+        const value = e.target.value;
+        const parsedValue = parseInt(value); // the value we get from the input field is string so parsing to INTEGER type...
+        setQuantity(!isNaN(parsedValue) ? parsedValue : value);
+    }
   
     // if (error) return <h1 className='text-center'>Error: {error}</h1>
   
@@ -75,22 +78,22 @@ const ProductDetails = ({ id }: {
                       name="" 
                       id="quantity" 
                       className='qty-number'
-                      // value={quantity} 
+                      value={quantity} 
                       min={0} 
                       max={5}
                       // onChange={(e) => setQuantity()}
-                      // onChange={(e) => handleQuantity(e)}
+                      onChange={(e) => handleQuantity(e)}
                       readOnly
                   />
                   <button 
                     className={`qty-update-btn 
-                    ${/*quantity*/0 === 0 ? 'cursor-not-allowed' : ''}`} 
+                    ${quantity === 0 ? 'cursor-not-allowed' : ''}`} 
                     onClick={() => decrementQuantity()}
                   >-</button>
               </div>
               <div className='my-8'>
                 <button 
-                  className={`product-btn add-to-cart-btn ${/*quantity*/0 === 0 ? "cursor-not-allowed" : ""}`}
+                  className={`product-btn add-to-cart-btn ${quantity === 0 ? "cursor-not-allowed" : ""}`}
                   // onClick={() => setItemQuantity(productID, quantity)}  
                   // disabled = {quantity === 0}
                 >Add to cart</button>

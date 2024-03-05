@@ -59,7 +59,7 @@ const Navbar = () => {
                 <BsHeart strokeWidth={0.8} className='icon'/>
                 <span>Wishlist</span>
               </Link>
-              <Link href={'/'} className="cart">
+              <Link href={'/cart'} className="cart">
                 <BsCart3 strokeWidth={0.8} className='icon'/>
                 <span>Cart</span>
               </Link>

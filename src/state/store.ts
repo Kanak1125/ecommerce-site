@@ -1,36 +1,5 @@
 import { create } from 'zustand';
-
-type Product = {
-    id: number;
-    title: string;
-    price: number;
-    description: string;
-    category: string;
-    image: string;
-    rating: { 
-        rate: number; 
-        count: number; 
-    }
-}
-
-type ProductStore = {
-    products: Product[];
-    setProducts: (items: Product[]) => void;
-}
-
-type CartItem = {
-    id: number;
-    quantity: number;
-}
-
-type CartStore = {
-    cartItems: CartItem[];
-    getItemQuantity: (id: number, state: CartStore) => number | undefined;
-    setItemQuantity: (id: number, qty: string) => void;
-    increaseQuantity: (id: number) => void;
-    decreaseQuantity: (id: number) => void;
-    removeQuantity: (id: number) => void;
-}
+import { Product, ProductStore, CartItem, CartStore } from '@/types/type';
 
 export const useProductStore = create<ProductStore>((set) => ({
     products: [],
@@ -38,9 +7,9 @@ export const useProductStore = create<ProductStore>((set) => ({
 }));
 
 export const useCartStore = create<CartStore>((set, get) => ({
-    cartItems: [],
-    getItemQuantity: (id: number, state: CartStore) => 
-    state.cartItems.find((item: CartItem) => item.id === id)?.quantity, 
+    cartItems: [{id: 2, quantity: 10}, {id: 1, quantity: 10},],
+    getItemQuantity: (id: number) => 
+    get().cartItems.find((item: CartItem) => item.id === id)?.quantity, 
 
     // the following quantity will be received from the DOM, so typed string...
     setItemQuantity: (id: number, qty: string) => set((state: CartStore): CartStore | Partial<CartStore> => {
@@ -130,4 +99,4 @@ export const useCartStore = create<CartStore>((set, get) => ({
             cartItems: state.cartItems.filter(item => item.id !== id)
         }
     })
-}))
+}));
