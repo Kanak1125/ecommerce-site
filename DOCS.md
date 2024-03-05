@@ -17,3 +17,7 @@
 - npm i nodemon --save-dev
 - npm i cors
 - npm install mysql
+
+
+### Firebase
+- npm install firebase
