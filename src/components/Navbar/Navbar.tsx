@@ -14,6 +14,7 @@ const Navbar = () => {
 
   const [isHamMenuActive, setIsHamMenuActive] = useState(false);
 
+  // if user isn't login account link in the navbar should direct user to the login page...
 
   return (
     <header className='w-full py-4 header'>

@@ -8,6 +8,7 @@ import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
 import { formatCurrency } from '@/utils/formatCurrency';
 
+import Navbar from '@/components/Navbar/Navbar';
 import { Product } from '@/types/type';
 
 import './cart.scss';
@@ -101,27 +102,30 @@ const page = () => {
     return acc + current.price * quantity;
 }, 0);
   return (
-    <main className='max-w-screen-xl mx-auto px-10 py-10 min-h-screen '>
-      {
-        cartItems.length === 0 ? <h2 className='text-2xl font-bold text-center text-secondary'>Your shopping Cart is empty </h2>
-        :
-        <>
-          <h2 className='text-2xl font-bold'>Your shopping Cart </h2>
-          <SimpleBar className='h-[444px] mt-10 '>
-            <ul className=''>
-              {/* <li> */}
-                {shoppingCartList}
-                
-              {/* </li> */}
-            </ul>
-          </SimpleBar>
-          <div className='my-5 text-2xl flex justify-between'>
-            <p className='font-semibold'>Total: </p>
-            <p className='font-bold'>{formatCurrency(totalAmount)}</p>
-          </div>
-        </>  
-      }
-    </main>
+    <>
+      <Navbar />
+      <main className='max-w-screen-xl mx-auto px-10 py-10 min-h-screen '>
+        {
+          cartItems.length === 0 ? <h2 className='text-2xl font-bold text-center text-secondary'>Your shopping Cart is empty </h2>
+          :
+          <>
+            <h2 className='text-2xl font-bold'>Your shopping Cart </h2>
+            <SimpleBar className='h-[444px] mt-10 '>
+              <ul className=''>
+                {/* <li> */}
+                  {shoppingCartList}
+                  
+                {/* </li> */}
+              </ul>
+            </SimpleBar>
+            <div className='my-5 text-2xl flex justify-between'>
+              <p className='font-semibold'>Total: </p>
+              <p className='font-bold'>{formatCurrency(totalAmount)}</p>
+            </div>
+          </>  
+        }
+      </main>
+    </>
   )
 }
 

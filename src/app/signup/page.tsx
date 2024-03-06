@@ -14,6 +14,7 @@ import { schema_PersonalInfo, schema_ContactInfo, schema_PasswordInfo, schema_Ag
 import CenteredContainer from '@/components/CenteredContainer';
 
 import signUp from '@/services/firebase/auth/signup';
+import { useRouter } from 'next/navigation';
 
 // Need: To include agreements to validation as well...
 
@@ -36,6 +37,9 @@ const page = () => {
     fields: ['terms_and_conditions', 'privacy_policy'],
   }];
 
+  const [error, setError] = useState("");
+  const router = useRouter();
+
   const [currentStep, setCurrentStep] = useState(1);
   const [currentSchema, setCurrentSchema] = useState<ObjectSchema<FieldValues, any, any, any>>(schema_PersonalInfo);
   
@@ -47,8 +51,8 @@ const page = () => {
       return schema_ContactInfo;
     case 3:
       return schema_PasswordInfo;
-    case 4:
-      return schema_Agreement;
+    // case 4:
+    //   return schema_Agreement;
     default: 
       return schema_PersonalInfo;
     }
@@ -107,12 +111,18 @@ const page = () => {
     setCurrentStep(prevState => prevState - 1);
   }
 
-  const onDataSubmit = (data: FieldValues) => {
+  const onDataSubmit = async (data: FieldValues) => {
     // data submission to the server takes place here...
     console.log(data);
     console.log("Submitted...");
 
+    const { result, err } = await signUp(data.email, data.password);
 
+    if (err) {
+      setError("Sign up failed!");
+    } else {
+      return router.push('/');
+    }
   };
 
   return (
