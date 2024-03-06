@@ -10,6 +10,9 @@ import { formatCurrency } from '@/utils/formatCurrency';
 
 import { Product } from '@/types/type';
 
+import './cart.scss';
+import '../../components/ProductDetails/productDetails.scss';
+
 const page = () => {
     const products = useProductStore((state) => state.products);  // access the products state from the global state...
     const cartItems = useCartStore((state) => state.cartItems);
@@ -39,7 +42,7 @@ const page = () => {
           // const parsedId = id.toString();
           return (
             <li key={index}>
-              <div className="flex flex-col w-full bg-slate rounded-md md:h-[200px] md:flex-row md:items-center md:p-5 mb-8 md:mb-0 shadow-lg md:shadow-none md:gap-6">
+              <div className="cart-item-container">
                 <Link href={`/product/${id}`} className='md:basis-1/6'>
                   <div className="w-full h-[200px] md:w-[160px] md:h-[160px] overflow-hidden bg-white py-4 md:rounded">
                     <img src={image} alt="" className='w-full h-full object-contain'/>
@@ -50,7 +53,7 @@ const page = () => {
                 </Link>
                 <div className="mt-3 px-3 flex items-center md:basis-3/12 md:mx-auto md:justify-center">
                   <button 
-                    className="w-[32px] h-[32px] inline-flex rounded items-center justify-center border-2 border-accent font-bold hover:bg-accent hover:text-primary transition-all bg-primary" 
+                    className="qty-update-btn" 
                     onClick={() => increaseItemQuantity(id)}
                   >+</button>
                   
@@ -58,7 +61,7 @@ const page = () => {
                       type="number" 
                       name="" 
                       id="quantity" 
-                      className='mx-2 rounded hide-scroll text-center border-2 border-accent outline-none h-[32px]'
+                      className='qty-number'
                       value={getItemQuantity(id)} 
                       min={1} 
                       max={5}
@@ -67,7 +70,7 @@ const page = () => {
                   />
                  
                   <button 
-                    className="w-[32px] h-[32px] inline-flex rounded items-center justify-center border-2 border-accent font-bold hover:bg-accent hover:text-primary transition-all bg-primary" 
+                    className="qty-update-btn" 
                     onClick={() => decreaseItemQuantity(id)}
                   >-</button>
                   <p className='mx-5 md:mx-auto text-1xl font-bold'>{amount}</p>
@@ -79,11 +82,11 @@ const page = () => {
                   </div>
                 </div>
                 <button
-                 className="m-3 mt-5 max-w-[120px] h-10 rounded button-shadow bg-accent text-primary md:basis-2/12"
+                 className="checkout-btn"
                  >Buy now</button>
                 <BsTrash3 
                   size={24} 
-                  className=' md:order-last hidden md:block md:basis-1/12 rounded cursor-pointer'
+                  className='md:order-last hidden md:block md:basis-1/12 rounded cursor-pointer'
                   onClick={() => removeQuantity(id)}  
                 />
               </div>

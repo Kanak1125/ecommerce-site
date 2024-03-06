@@ -12,7 +12,6 @@ import './productDetails.scss';
 const ProductDetails = ({ id: productID }: {
     id: string;
 }) => {
-    // const { getItemQuantity, setItemQuantity } = useShoppingCart();
     const getItemQuantity = useCartStore((set) => set.getItemQuantity);
     const setItemQuantity = useCartStore((set) => set.setItemQuantity);
   
@@ -94,8 +93,8 @@ const ProductDetails = ({ id: productID }: {
               <div className='my-8'>
                 <button 
                   className={`product-btn add-to-cart-btn ${quantity === 0 ? "cursor-not-allowed" : ""}`}
-                  // onClick={() => setItemQuantity(productID, quantity)}  
-                  // disabled = {quantity === 0}
+                  onClick={() => setItemQuantity(parseInt(productID), quantity.toString())}  
+                  disabled = {quantity === 0}
                 >Add to cart</button>
                 <button className="product-btn buy-now-btn">Buy now</button>
               </div>

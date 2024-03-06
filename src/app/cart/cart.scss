@@ -1,0 +1,13 @@
+@use '../globals.scss' as *;
+
+.cart-item-container {
+    background-color: $primary-color;
+    @apply flex flex-col w-full rounded-md md:h-[200px] md:flex-row md:items-center md:p-5 mb-8 md:mb-0 shadow-lg md:shadow-none md:gap-6;
+}
+
+// the following is buy now btn for checkout...
+.checkout-btn {
+    background-color: $accent-color !important;
+    color: $txt-color-primary-inv !important;
+    @apply m-3 mt-5 max-w-[120px] h-10 rounded button-shadow md:basis-2/12;
+}
