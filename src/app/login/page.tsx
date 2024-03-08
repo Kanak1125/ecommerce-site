@@ -39,6 +39,7 @@ const page = () => {
 
     if (err) {
       setError("Login in failed...");
+      console.log("Failed to login");
     } else {
       return router.push('/');
     }

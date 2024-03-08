@@ -89,6 +89,17 @@
         @apply hidden;
     }
 
+    .user-account {
+        @apply relative cursor-pointer;
+
+        .logout-btn {
+            width: max-content;
+            background: $primary-color;
+            bottom: -40px;
+            @apply absolute rounded-md p-2 button-shadow z-30 border-none outline-none;
+        }
+    }
+
     .call-support {
         @apply hidden;
 

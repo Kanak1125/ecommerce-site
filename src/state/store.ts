@@ -1,5 +1,13 @@
 import { create } from 'zustand';
-import { Product, ProductStore, CartItem, CartStore } from '@/types/type';
+import { Product, ProductStore, CartItem, CartStore, AuthStore } from '@/types/type';
+
+// auth store...
+export const useAuthStore = create<AuthStore>((set) => ({
+    currentUser: null,
+    loading: true,
+    setCurrentUser: (user) => set({ currentUser: user }),
+    setLoading: (isLoading) => set({ loading: isLoading }),
+}));
 
 export const useProductStore = create<ProductStore>((set) => ({
     products: [],

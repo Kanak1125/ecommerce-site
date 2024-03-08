@@ -1,6 +1,7 @@
 import './globals.scss';
 import { Noto_Sans } from 'next/font/google';
 import TanstackProvider from '@/utils/providers/TanstackProvider';
+import AuthProvider from '@/context/AuthProvider';
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const noto = Noto_Sans({
@@ -21,10 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${noto.className}`}>
-        <TanstackProvider>
-          {children}
-        {/* <ReactQueryDevtools /> */}
-        </TanstackProvider>
+        <AuthProvider>
+          <TanstackProvider>
+            {children}
+          {/* <ReactQueryDevtools /> */}
+          </TanstackProvider>
+        </AuthProvider>
       </body>
     </html>
   )

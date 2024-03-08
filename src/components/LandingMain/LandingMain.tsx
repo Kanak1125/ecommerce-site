@@ -91,15 +91,15 @@ const LandingMain = () => {
     console.log(products);
   }, [data, setProducts]);
 
-  const categoryLinks = categories.map(item => (
-    <CategoryLinks>
+  const categoryLinks = categories.map((item, idx) => (
+    <CategoryLinks key={idx}>
       {item.icon}
       <p className='category-name '>{item.name}</p>
     </CategoryLinks>
   ))
 
-  const cardItems = cards.map(item => (
-    <ItemCard class__Name={item.class} text={ item.text } />
+  const cardItems = cards.map((item, idx) => (
+    <ItemCard key={idx} class__Name={item.class} text={ item.text } />
   ))
 
   const newArrivalsContent = 

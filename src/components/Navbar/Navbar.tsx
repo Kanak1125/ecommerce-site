@@ -10,11 +10,32 @@ import { PiHeadsetFill } from "react-icons/pi";
 
 import Link from 'next/link';
 
+import logOut from '@/services/firebase/auth/signout';
+import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/state/store';
+
 const Navbar = () => {
 
   const [isHamMenuActive, setIsHamMenuActive] = useState(false);
+  const [openLogoutModal, setOpenLogoutModal] = useState(false);
+  const [error, setError] = useState('');
+  const { currentUser } = useAuthStore();
+  const router = useRouter();
 
   // if user isn't login account link in the navbar should direct user to the login page...
+
+  const handleLogout = async () => {
+    const { err } = await logOut();
+
+    if (err) {
+      setError("Can't sign out!");
+      console.log(error);
+      return;
+    }
+
+    console.log(currentUser);
+    router.push('/');
+  }
 
   return (
     <header className='w-full py-4 header'>
@@ -64,10 +85,18 @@ const Navbar = () => {
                 <BsCart3 strokeWidth={0.8} className='icon'/>
                 <span>Cart</span>
               </Link>
-              <Link href={'/'} className="user-account">
+              {/* <Link href={'/'} className="user-account"> */}
+              <div className='user-account'
+              onClick={() => setOpenLogoutModal(prevState => !prevState)}
+              >
                 <GoPerson strokeWidth={0.8} className='icon'/>
                 <span>Account</span>
-              </Link>
+                <button 
+                className={`${openLogoutModal ? 'logout-btn' : 'hidden'} `}
+                onClick={handleLogout}
+                >Logout</button>
+              </div>
+              {/* </Link> */}
           </div>
 
           {/* hamburger menu will be in the bottom of the header... */}

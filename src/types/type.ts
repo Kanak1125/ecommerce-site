@@ -1,6 +1,12 @@
 // export type Inputs = {
 //     example
 // }
+import { User } from 'firebase/auth';
+import { ReactNode } from 'react';
+
+export interface ProtectedRouteProps {
+  children: ReactNode;
+}
 
 export type Item = {
   id: number;
@@ -45,4 +51,11 @@ export type CartStore = {
   increaseQuantity: (id: number) => void;
   decreaseQuantity: (id: number) => void;
   removeQuantity: (id: number) => void;
+}
+
+export type AuthStore = {
+  currentUser: User | null;
+  loading: boolean;
+  setCurrentUser: (user: User | null) => void;
+  setLoading: (isLoading: boolean) => void;
 }

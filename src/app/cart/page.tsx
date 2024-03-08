@@ -13,6 +13,7 @@ import { Product } from '@/types/type';
 
 import './cart.scss';
 import '../../components/ProductDetails/productDetails.scss';
+import ProtectedRoute from '@/components/ProtectedRoute';
 
 const page = () => {
     const products = useProductStore((state) => state.products);  // access the products state from the global state...
@@ -102,7 +103,7 @@ const page = () => {
     return acc + current.price * quantity;
 }, 0);
   return (
-    <>
+    <ProtectedRoute>
       <Navbar />
       <main className='max-w-screen-xl mx-auto px-10 py-10 min-h-screen '>
         {
@@ -125,7 +126,7 @@ const page = () => {
           </>  
         }
       </main>
-    </>
+    </ProtectedRoute>
   )
 }
 
