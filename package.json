@@ -28,6 +28,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.50.0",
     "react-icons": "^5.0.1",
+    "react-tabs": "^6.0.2",
     "recharts": "^2.12.2",
     "simplebar-react": "^3.2.4",
     "yup": "^1.3.3",

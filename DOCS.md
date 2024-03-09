@@ -32,3 +32,5 @@
 - npm install react-circular-progressbar
 - npm i @heroicons/react
 - npm install @headlessui/react
+
+- npm install --save react-tabs

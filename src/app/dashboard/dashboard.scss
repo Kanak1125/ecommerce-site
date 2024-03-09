@@ -1,0 +1,24 @@
+@use '../globals.scss' as *;
+
+.stats-container {
+    @apply border-2 shadow-[outset_0_0_10px_rgba(0,0,0,0.6)] bg-gray-100 border-gray-300    px-4 py-3 rounded-xl;
+}
+.user-icon {
+    color: $txt-color-primary;
+
+    @apply w-12 h-12 mb-3 inline-block;
+    
+    // &:hover {
+    //     color: $txt-color-primary;
+    // }
+}
+
+.num-text {
+    color: $accent-color;
+    @apply font-medium text-3xl;
+}
+
+.stat-title {
+    color: $txt-color-primary;
+    @apply font-bold;
+}
