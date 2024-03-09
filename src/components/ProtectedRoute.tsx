@@ -21,7 +21,7 @@ const ProtectedRoute:React.FC<ProtectedRouteProps> = ({ children }) => {
     )
 
     
-
+        // THE Following: without using the AuthProvider wrapper (only zustand)...
     // const router = useRouter();
 
     // if (!loading && !currentUser) {

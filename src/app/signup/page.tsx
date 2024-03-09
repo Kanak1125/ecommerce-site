@@ -12,9 +12,14 @@ import { ObjectSchema } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema_PersonalInfo, schema_ContactInfo, schema_PasswordInfo, schema_Agreement } from '@/schema/schema_signup';
 import CenteredContainer from '@/components/CenteredContainer';
+import Link from 'next/link';
 
 import signUp from '@/services/firebase/auth/signup';
 import { useRouter } from 'next/navigation';
+import ProtectedPublicRoute from '@/components/ProtectedPublicRoute';
+import { updateProfile } from 'firebase/auth';
+import { collection, query, doc, setDoc } from 'firebase/firestore';
+import { db } from '@/services/firebase/config';
 
 // Need: To include agreements to validation as well...
 
@@ -118,71 +123,90 @@ const page = () => {
 
     const { result, err } = await signUp(data.email, data.password);
 
+    // const addToDB = async () => {
+    //   const docRef = doc(db, 'user', data?.email);
+    //   await setDoc(docRef, {
+    //     ...data,
+    //     id: result?.user.uid,
+    //   })
+    // }
+
     if (err) {
       setError("Sign up failed!");
     } else {
+      console.log(data);
+      // addToDB();
+      console.log("Signup successful...");
+      // if (result) {
+      //     await updateProfile(result.user, {
+      //     displayName: data.fullName
+      //   });
+      // }
       return router.push('/');
     }
   };
 
   return (
-    <CenteredContainer>
-        <h2 className='heading-signup mb-6'>Sign up</h2>
-        <form 
-          onSubmit={handleSubmit(onDataSubmit)}
-          className='signup-form break-all break-words
-          '
-        >
-          {/* {error && */}
-            {/* <div className='bg-red-100 border-2 border-red-400 text-red-400 mt-2 p-3 rounded'>
-              {error} 
-            </div>*/}
-          {/* } */}
-          <Stepper 
-            steps={ steps }
-            currentStep={ currentStep }
-          />
+    <ProtectedPublicRoute>
+      <CenteredContainer>
+          <h2 className='heading-signup mb-6'>Sign up</h2>
+          <form 
+            onSubmit={handleSubmit(onDataSubmit)}
+            className='signup-form break-all break-words
+            '
+          >
+            {/* {error && */}
+              {/* <div className='bg-red-100 border-2 border-red-400 text-red-400 mt-2 p-3 rounded'>
+                {error} 
+              </div>*/}
+            {/* } */}
+            <Stepper 
+              steps={ steps }
+              currentStep={ currentStep }
+            />
 
-          {currentStep === 1 && <PersonalInfo 
-          steps={steps}
-          currentStep={currentStep}
-          register={register}
-          incrementStep={incrementStep}
-          decrementStep={decrementStep}
-          isValid={isValid}
-          isSubmitting={isSubmitting}
-          errors={errors}/>}
-          {currentStep === 2 && <ContactInfo 
-          steps={steps}
-          currentStep={currentStep}
-          register={register}
-          incrementStep={incrementStep}
-          decrementStep={decrementStep}
-          isValid={isValid}
-          isSubmitting={isSubmitting}
-          errors={errors}/>}
-          {currentStep === 3 && <PasswordInfo 
-          steps={steps}
-          currentStep={currentStep}
-          register={register}
-          incrementStep={incrementStep}
-          decrementStep={decrementStep}
-          isValid={isValid}
-          isSubmitting={isSubmitting}
-          errors={errors}/>}
-          {currentStep === 4 && <FinishForm 
-          steps={steps}
-          currentStep={currentStep}
-          register={register}
-          incrementStep={incrementStep}
-          decrementStep={decrementStep}
-          isValid={isValid}
-          isSubmitting={isSubmitting}
-          errors={errors}/>}
+            {currentStep === 1 && <PersonalInfo 
+            steps={steps}
+            currentStep={currentStep}
+            register={register}
+            incrementStep={incrementStep}
+            decrementStep={decrementStep}
+            isValid={isValid}
+            isSubmitting={isSubmitting}
+            errors={errors}/>}
+            {currentStep === 2 && <ContactInfo 
+            steps={steps}
+            currentStep={currentStep}
+            register={register}
+            incrementStep={incrementStep}
+            decrementStep={decrementStep}
+            isValid={isValid}
+            isSubmitting={isSubmitting}
+            errors={errors}/>}
+            {currentStep === 3 && <PasswordInfo 
+            steps={steps}
+            currentStep={currentStep}
+            register={register}
+            incrementStep={incrementStep}
+            decrementStep={decrementStep}
+            isValid={isValid}
+            isSubmitting={isSubmitting}
+            errors={errors}/>}
+            {currentStep === 4 && <FinishForm 
+            steps={steps}
+            currentStep={currentStep}
+            register={register}
+            incrementStep={incrementStep}
+            decrementStep={decrementStep}
+            isValid={isValid}
+            isSubmitting={isSubmitting}
+            errors={errors}/>}
 
-          {/* <pre>{JSON.stringify(watch())}</pre> */}
-        </form>
-    </CenteredContainer>
+            {/* <pre>{JSON.stringify(watch())}</pre> */}
+          </form>
+          <p className="auth-footer">Already have an account? <Link href={'/login'}>Login</Link></p>
+      </CenteredContainer>
+    </ProtectedPublicRoute>
   )
 }
 

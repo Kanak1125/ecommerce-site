@@ -48,3 +48,15 @@
 .btns-container {
     @apply flex w-full items-center justify-between mt-1 mb-4;
 }
+
+.auth-footer {
+    @apply my-6;
+
+    a {
+        color: $accent-color;
+
+        &:hover {
+            @apply underline;
+        }
+    }
+}

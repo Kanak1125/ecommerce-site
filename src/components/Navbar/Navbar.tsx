@@ -90,7 +90,7 @@ const Navbar = () => {
               onClick={() => setOpenLogoutModal(prevState => !prevState)}
               >
                 <GoPerson strokeWidth={0.8} className='icon'/>
-                <span>Account</span>
+                <span>{currentUser ? currentUser.displayName : 'Account'}</span>
                 <button 
                 className={`${openLogoutModal ? 'logout-btn' : 'hidden'} `}
                 onClick={handleLogout}

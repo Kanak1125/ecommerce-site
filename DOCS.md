@@ -22,3 +22,13 @@
 
 ### Firebase
 - npm install firebase
+
+### admin
+- npm i recharts
+- npm install @mui/icons-material
+<!-- - npm install @mui/material @mui/styled-engine-sc styled-components -->
+- npm install @mui/material @emotion/react @emotion/styled
+- npm install @mui/x-data-grid
+- npm install react-circular-progressbar
+- npm i @heroicons/react
+- npm install @headlessui/react
