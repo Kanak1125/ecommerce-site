@@ -34,3 +34,7 @@
 - npm install @headlessui/react
 
 - npm install --save react-tabs
+
+
+- npm i uuid
+- npm i --save-dev @types/uuid

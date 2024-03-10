@@ -22,3 +22,9 @@
     color: $txt-color-primary;
     @apply font-bold;
 }
+
+.back-link {
+    background-color: $secondary-color;
+    color: $accent-color;
+    @apply absolute top-4 left-4 p-4 rounded-md;
+}
