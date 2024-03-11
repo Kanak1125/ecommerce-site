@@ -5,6 +5,11 @@
     @apply text-2xl font-bold;
 }
 
+.product-title {
+    color: $secondary-color;
+    @apply text-2xl font-semibold;
+}
+
 .product-price {
     color: $accent-color;
     @apply my-5 font-bold;

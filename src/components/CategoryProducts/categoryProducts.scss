@@ -1,0 +1,7 @@
+@use '../../app/globals.scss' as *;
+
+.no-item-msg {
+    font-size: $font-xl;
+    color: $secondary-color;
+    @apply text-center my-20 opacity-80;
+}

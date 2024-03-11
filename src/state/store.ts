@@ -1,5 +1,9 @@
 import { create } from 'zustand';
 import { Product, ProductStore, CartItem, CartStore, AuthStore } from '@/types/type';
+import { v4 as uuid } from 'uuid';
+// import useLocalStorage from '../utils/hooks/useLocalStorage';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '@/services/firebase/config';
 
 // auth store...
 export const useAuthStore = create<AuthStore>((set) => ({
@@ -15,19 +19,22 @@ export const useProductStore = create<ProductStore>((set) => ({
 }));
 
 export const useCartStore = create<CartStore>((set, get) => ({
-    cartItems: [{id: 2, quantity: 10}, {id: 1, quantity: 10},],
-    getItemQuantity: (id: number) => 
+    cartItems: [],
+    // cartItems: useLocalStore(["cart-items"] | []);
+    setCartItems: (items: CartItem[]) => set(() => ({ cartItems: items})),
+    getItemQuantity: (id: string) => 
     get().cartItems.find((item: CartItem) => item.id === id)?.quantity, 
 
     // the following quantity will be received from the DOM, so typed string...
-    setItemQuantity: (id: number, qty: string) => set((state: CartStore): CartStore | Partial<CartStore> => {
+    setItemQuantity: (id: string, qty: string) => set((state: CartStore): CartStore | Partial<CartStore> => {
+        console.log(state.cartItems);
         if (!state.cartItems.some((item: CartItem) => item.id === id)) {
             return {
                 ...state,
                 cartItems: [
                     ...state.cartItems,
                     {
-                        id: +id,
+                        id,
                         quantity: parseInt(qty)
                     }
                 ]
@@ -49,14 +56,14 @@ export const useCartStore = create<CartStore>((set, get) => ({
         }
     }),
 
-    increaseQuantity: (id: number) => set((state: CartStore) => {
+    increaseQuantity: (id: string) => set((state: CartStore) => {
         if (state.cartItems.find(item => item.id === id) == null) {
             return {
                 ...state,
                 cartItems: [
                     ...state.cartItems,
                     {
-                        id: +id,
+                        id,
                         quantity: 1,
                     }
                 ]
@@ -78,7 +85,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
         }
     }),
 
-    decreaseQuantity: (id: number) => set((state: CartStore) => {
+    decreaseQuantity: (id: string) => set((state: CartStore) => {
         if (state.cartItems.find(item => item.id === id)?.quantity == 1) {
             return {
                 ...state,
@@ -101,10 +108,29 @@ export const useCartStore = create<CartStore>((set, get) => ({
         }
     }),
 
-    removeQuantity: (id: number) => set((state: CartStore) => {
+    removeQuantity: (id: string) => set((state: CartStore) => {
         return {
             ...state,
             cartItems: state.cartItems.filter(item => item.id !== id)
         }
-    })
+    }),
+
+    updateFirestore: async () => {
+        const { cartItems } = get();
+        const currentUser = useAuthStore.getState().currentUser; // Access currentUser from authStore...
+        try {
+             if (currentUser) { // Check if currentUser exists
+            const docRef = doc(db, 'cart', currentUser.uid);
+            await setDoc(docRef, { 
+                ...cartItems,
+                // Other fields you want to include
+            });
+            console.log('Cart data updated in Firestore');
+        } else {
+            console.error('No current user found');
+        }
+        } catch (error) {
+            console.error('Error updating cart data in Firestore:', error);
+        }
+    }
 }));

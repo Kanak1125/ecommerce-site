@@ -16,12 +16,14 @@ import Card from '../product_card/Card';
 
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { Item } from '@/types/type';
+import { Item, Product } from '@/types/type';
 import CardSkeletonLoader from '../CardSkeletonLoader/CardSkeletonLoader';
-import { useProductStore } from '@/state/store';
+import { useAuthStore, useProductStore } from '@/state/store';
 
 import "react-alice-carousel/lib/scss/alice-carousel.scss";
 import AliceCarousel from 'react-alice-carousel';
+import { db } from '@/services/firebase/config';
+import { QuerySnapshot, collection, onSnapshot, query, where } from 'firebase/firestore';
 
 const handleDragStart = (e: React.MouseEvent<HTMLElement>) => e.preventDefault();
 
@@ -74,22 +76,91 @@ const images = [
 const LandingMain = () => {
   const products = useProductStore((state) => state.products);  // access the products state from the global state...
   const setProducts = useProductStore((state) => state.setProducts);
+  const { currentUser } = useAuthStore();
+  
+  const isLoading = false;
+  const error = false;
+  // const { data, isLoading, error } = useQuery({
+  //   queryKey: ["products"],
+  //   queryFn: async () => {
+  //     const response = await axios.get('https://fakestoreapi.com/products/');
+  //     return response.data;
+  //   }
+  // });
+  
+  // useEffect(() => {
+  //   if (data) {
+  //     setProducts(data);
+  //   }
+  //   console.log(products);
 
-  
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["products"],
-    queryFn: async () => {
-      const response = await axios.get('https://fakestoreapi.com/products/');
-      return response.data;
-    }
-  });
-  
+  // }, [data, setProducts]);
+
   useEffect(() => {
-    if (data) {
-      setProducts(data);
-    }
-    console.log(products);
-  }, [data, setProducts]);
+    // if (currentUser) {}
+    const productsDb = collection(db, "products");
+    // // const q = query(productsDb, where("userId", "==", currentUser?.uid));
+    // const q = query(productsDb);
+    // const unsubscribe = onSnapshot(q,
+    //   (querySnapshot) => {
+    //     setProducts(
+    //       querySnapshot.docs.map(doc => (
+    //         id: doc.id;
+    //         title: doc.name;
+    //         price: number;
+    //         description: string;
+    //         category: string;
+    //         image: string;
+    //         rating: { 
+    //             rate: number; 
+    //             count: number; 
+    //         }
+    //       ))
+    //     )
+    //     console.log(querySnapshot);
+    //   }
+    // ) 
+
+    const unsubscribe = onSnapshot(query(productsDb), (querySnapshot) => {
+      const productsData: Product[] = [];
+      querySnapshot.forEach((doc) => {
+        // Extract data from each document
+        const productData: Product = {
+          id: doc.id,
+          title: doc.data().name,
+          category: doc.data().category,
+          description: doc.data().description,
+          price: doc.data().price,
+          image: doc.data().image,
+          rating: {
+            rate: 5,
+            count: 5,
+          }
+        };
+        productsData.push(productData);
+      });
+      // Set the products state with the updated data
+      setProducts(productsData);
+    });
+
+    // Clean up the listener when the component unmounts
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  // export type Product = {
+  //   id: number;
+  //   title: string;
+  //   price: number;
+  //   description: string;
+  //   category: string;
+  //   image: string;
+  //   rating: { 
+  //       rate: number; 
+  //       count: number; 
+  //   }
+  // }
 
   const categoryLinks = categories.map((item, idx) => (
     <CategoryLinks key={idx}>

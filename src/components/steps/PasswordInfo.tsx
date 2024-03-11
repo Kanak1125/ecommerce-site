@@ -12,6 +12,7 @@ const PasswordInfo = (props: {
     isValid: boolean;
     isSubmitting: boolean;
     register: any;  // this needs to be considered...
+    // shouldSubmit: boolean
     errors: any
   }) => {
 

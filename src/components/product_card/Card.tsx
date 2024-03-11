@@ -5,7 +5,7 @@ import { formatCurrency } from './../../utils/formatCurrency';
 import './card.scss';
 
 const Card = (props: {
-    id: number;
+    id: string;
     imgUrl: string;
     title: string;
     price: number;

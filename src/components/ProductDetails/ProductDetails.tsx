@@ -1,4 +1,6 @@
-import React, { useState } from 'react'
+'use client';
+
+import React, { useState, useEffect } from 'react'
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
 // import Breadcrumbs from '../components/Breadcrumbs';
@@ -8,31 +10,71 @@ import { useCartStore } from '@/state/store';
 import {BsStarFill, BsStarHalf} from 'react-icons/bs';
 import { formatCurrency } from '@/utils/formatCurrency';
 import './productDetails.scss';
+import { query, collection, where, onSnapshot, doc, getDoc } from 'firebase/firestore';
+import { db } from '@/services/firebase/config';
+import { Product } from '@/types/type';
+import { useAuthStore } from '@/state/store';
+import { useRouter } from 'next/navigation'; 
 
 const ProductDetails = ({ id: productID }: {
     id: string;
 }) => {
+    const cart = useCartStore((set) => set.cartItems);
     const getItemQuantity = useCartStore((set) => set.getItemQuantity);
     const setItemQuantity = useCartStore((set) => set.setItemQuantity);
+    const updateFirestore = useCartStore((set) => set.updateFirestore);
+    const [currentItem, setCurrentItem] = useState<Product>({} as Product);
+
+    const { currentUser } = useAuthStore();
+    const router = useRouter();
+
+    const isLoading = false;
+    const error = false;
+    const isFetching = false;
+
+    // const {isLoading, error, data, isFetching} = useQuery({
+    //   queryKey: [`product-${productID}`],
+    //   queryFn: async () => {
+    //     const response = await axios.get(`https://fakestoreapi.com/products/${productID}`);
+    //     return response.data;
+    //   },
+    //   staleTime: 1000 * 60 * 10
+    // });
+
+    useEffect(() => {
+
+      const getProduct = async (productID: string) => {
+        try {
+          const productRef = doc(db, 'products', productID);
+          const productSnap = await getDoc(productRef);
+          if (productSnap.exists()) {
+            const productData = productSnap.data() as Product; // Explicitly cast productData to Product type
+            setCurrentItem(productData);
+          } else {
+            console.log('No such product exists!');
+          }
+        } catch (error) {
+          console.error('Error getting product:', error);
+        }
+      }
+
+        getProduct(productID);
+        console.log(cart);
+    }, []);
   
-    const {isLoading, error, data, isFetching} = useQuery({
-      queryKey: [`product-${productID}`],
-      queryFn: async () => {
-        const response = await axios.get(`https://fakestoreapi.com/products/${productID}`);
-        return response.data;
-      },
-      staleTime: 1000 * 60 * 10
-    });
-  
-    const [quantity, setQuantity] = useState(getItemQuantity(parseInt(productID)) || 0);
+    const [quantity, setQuantity] = useState(getItemQuantity(productID) || 0);
   
     function incrementQuantity() {
+        // if (!currentUser) return;
         setQuantity((prevQuantity: number) => prevQuantity + 1);
+        updateFirestore();
     }
   
     function decrementQuantity() {
+        // if (!currentUser && quantity === 0) return; 
         if (quantity === 0) return; 
         setQuantity((prevQuantity: number) => prevQuantity - 1);
+        updateFirestore();
     }
     function handleQuantity(e: any) {
         const value = e.target.value;
@@ -52,11 +94,11 @@ const ProductDetails = ({ id: productID }: {
           :
           <div className="flex flex-col my-6 md:flex-row items-center gap-10">
             <div className="w-full h-[360px] md:basis-2/5 bg-white rounded py-8">
-              <img src={data?.image} alt="" className="w-full h-full object-contain" />
+              <img src={currentItem?.image} alt="" className="w-full h-full object-contain" />
             </div>
             <div className="my-4 p-2 md:basis-3/5">
-              <h2 className='text-2xl font-semibold'>{data?.title}</h2>
-              <p className='product-price'>{formatCurrency(data?.price)}</p>
+              <h2 className='product-title'>{currentItem?.title}</h2>
+              <p className='product-price'>{formatCurrency(currentItem?.price)}</p>
               <div className="product-ratings">
                   <BsStarFill size={18}/>
                   <BsStarFill size={18}/>
@@ -65,7 +107,7 @@ const ProductDetails = ({ id: productID }: {
                   <BsStarHalf size={18}/>
               </div>
               <p className='product-availability'>Availability: In stock</p>
-              <p className="product-description">{data?.description}</p>
+              <p className="product-description">{currentItem?.description}</p>
               <div className="mt-10 flex items-center ">
                   <label htmlFor="quantity" title='Quantity' className='mr-4'>Qty:</label>
                   <button 
@@ -93,7 +135,14 @@ const ProductDetails = ({ id: productID }: {
               <div className='my-8'>
                 <button 
                   className={`product-btn add-to-cart-btn ${quantity === 0 ? "cursor-not-allowed" : ""}`}
-                  onClick={() => setItemQuantity(parseInt(productID), quantity.toString())}  
+                  onClick={() => {
+                    if (!currentUser) {
+                      router.push('/login');
+                      return;
+                    }
+                    setItemQuantity(productID, quantity.toString());
+                    updateFirestore();
+                  }}  
                   disabled = {quantity === 0}
                 >Add to cart</button>
                 <button className="product-btn buy-now-btn">Buy now</button>

@@ -49,6 +49,10 @@ const page = () => {
     }
   };
 
+  const loginSuccess = () => {
+    console.log("Login successful...");
+  }
+
   return (
     <ProtectedPublicRoute>
       <CenteredContainer>
@@ -82,7 +86,8 @@ const page = () => {
               <Button 
               text={'Login'}
               align='right'
-              handleBtnClick= {login}
+              // handleBtnClick= {login}
+              handleBtnClick= {loginSuccess}
               isValid={isValid}
               isSubmitting={isSubmitting}
               />

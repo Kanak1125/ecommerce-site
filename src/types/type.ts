@@ -9,7 +9,7 @@ export interface ProtectedRouteProps {
 }
 
 export type Item = {
-  id: number;
+  id: string;
   title: string;
   description: string;
   image: string;
@@ -22,7 +22,7 @@ export type Item = {
 }
 
 export type Product = {
-  id: number;
+  id: string;
   title: string;
   price: number;
   description: string;
@@ -40,17 +40,19 @@ export type ProductStore = {
 }
 
 export type CartItem = {
-  id: number;
+  id: string;
   quantity: number;
 }
 
 export type CartStore = {
   cartItems: CartItem[];
-  getItemQuantity: (id: number) => number | undefined;
-  setItemQuantity: (id: number, qty: string) => void;
-  increaseQuantity: (id: number) => void;
-  decreaseQuantity: (id: number) => void;
-  removeQuantity: (id: number) => void;
+  setCartItems: (items: CartItem[]) => void;
+  getItemQuantity: (id: string) => number | undefined;
+  setItemQuantity: (id: string, qty: string) => void;
+  increaseQuantity: (id: string) => void;
+  decreaseQuantity: (id: string) => void;
+  removeQuantity: (id: string) => void;
+  updateFirestore: () => void;
 }
 
 export type AuthStore = {

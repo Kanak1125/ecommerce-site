@@ -42,6 +42,7 @@ const page = () => {
     fields: ['terms_and_conditions', 'privacy_policy'],
   }];
 
+  const [shouldSubmit, setShouldSubmit] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
 
@@ -102,6 +103,7 @@ const page = () => {
 
     // if (!output || (currentStep === steps.length)) return;
     if (!output) return;
+    if (currentStep === 3) setShouldSubmit(true); // submit okay flag for signup...
 
     if (currentStep === steps.length) {
       await handleSubmit(onDataSubmit)();
@@ -118,30 +120,32 @@ const page = () => {
 
   const onDataSubmit = async (data: FieldValues) => {
     // data submission to the server takes place here...
+    console.log(shouldSubmit);
+    if (!shouldSubmit) return;
     console.log(data);
     console.log("Submitted...");
 
     const { result, err } = await signUp(data.email, data.password);
 
-    // const addToDB = async () => {
-    //   const docRef = doc(db, 'user', data?.email);
-    //   await setDoc(docRef, {
-    //     ...data,
-    //     id: result?.user.uid,
-    //   })
-    // }
+    const addToDB = async () => {
+      const docRef = doc(db, 'user', data?.email);
+      await setDoc(docRef, {
+        ...data,
+        id: result?.user.uid,
+      })
+    }
 
     if (err) {
       setError("Sign up failed!");
     } else {
       console.log(data);
-      // addToDB();
+      addToDB();
       console.log("Signup successful...");
-      // if (result) {
-      //     await updateProfile(result.user, {
-      //     displayName: data.fullName
-      //   });
-      // }
+      if (result) {
+          await updateProfile(result.user, {
+          displayName: data.fullName
+        });
+      }
       return router.push('/');
     }
   };
