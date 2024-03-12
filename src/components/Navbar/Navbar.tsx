@@ -13,6 +13,7 @@ import Link from 'next/link';
 import logOut from '@/services/firebase/auth/signout';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/state/store';
+import Ping from '../Ping';
 
 const Navbar = () => {
 
@@ -82,7 +83,10 @@ const Navbar = () => {
                 <span>Wishlist</span>
               </Link>
               <Link href={'/cart'} className="cart">
-                <BsCart3 strokeWidth={0.8} className='icon'/>
+                <div className="relative">
+                  <BsCart3 strokeWidth={0.8} className='icon'/>
+                  <Ping />
+                </div>
                 <span>Cart</span>
               </Link>
               {/* <Link href={'/'} className="user-account"> */}

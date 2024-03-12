@@ -50,6 +50,7 @@ const ProductDetails = ({ id: productID }: {
           if (productSnap.exists()) {
             const productData = productSnap.data() as Product; // Explicitly cast productData to Product type
             setCurrentItem(productData);
+            console.log(productData);
           } else {
             console.log('No such product exists!');
           }
@@ -97,7 +98,7 @@ const ProductDetails = ({ id: productID }: {
               <img src={currentItem?.image} alt="" className="w-full h-full object-contain" />
             </div>
             <div className="my-4 p-2 md:basis-3/5">
-              <h2 className='product-title'>{currentItem?.title}</h2>
+              <h2 className='product-title'>{currentItem?.name}</h2>
               <p className='product-price'>{formatCurrency(currentItem?.price)}</p>
               <div className="product-ratings">
                   <BsStarFill size={18}/>

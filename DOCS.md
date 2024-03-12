@@ -11,7 +11,7 @@
 - npm i @tanstack/react-query @tanstack/react-query-devtools
 - npm install zustand
 - npm i simplebar-react
-
+- npm i react-toastify
 
 ### Server
 - npm i express
@@ -38,3 +38,10 @@
 
 - npm i uuid
 - npm i --save-dev @types/uuid
+
+### stripe-checkout
+
+- npm i react-stripe-checkout
+
+### server in the root folder...
+- npm i express cors stripe uuid

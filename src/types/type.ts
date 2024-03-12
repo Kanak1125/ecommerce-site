@@ -23,7 +23,7 @@ export type Item = {
 
 export type Product = {
   id: string;
-  title: string;
+  name: string;
   price: number;
   description: string;
   category: string;

@@ -15,13 +15,25 @@ import './cart.scss';
 import '../../components/ProductDetails/productDetails.scss';
 import ProtectedRoute from '@/components/ProtectedRoute';
 
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { db } from '@/services/firebase/config';
+
+// stripe
+import StripeCheckout, { Token } from 'react-stripe-checkout';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// toast.configure();
 
 const page = () => {
     const products = useProductStore((state) => state.products);  // access the products state from the global state...
     const cartItems = useCartStore((state) => state.cartItems);
     const { currentUser } = useAuthStore();
+    const router = useRouter();
+
+    const notify = (msg: string) => toast(msg);
 
     // select and get only the getItemQuantity piece of state using the selector function...
     const setCartItems = useCartStore((state) => state.setCartItems);
@@ -65,6 +77,41 @@ const page = () => {
 
     console.log(products, cartItems);
     
+    const handleToken: (token: Token) => void = async (token: Token) => {
+      console.log(token);
+      const cart = {
+        name: "All Products",
+        totalAmount
+      };
+
+      const URL = "http://localhost:8080/checkout";
+      const response = await axios.post(URL, {
+        token,
+        cart,
+      });
+
+      let { status } = response.data;
+      if (status == "success") {
+        router.push('/');
+        toast.success("Your order has been placed successfully", {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: false,
+          progress: undefined,
+        });
+
+        if (currentUser) {
+          const docRef = doc(db, 'cart', currentUser.uid);
+          await deleteDoc(docRef);
+        }
+      } else {
+        console.log("Something went wrong in checkout!");
+      }
+    }
+
     const shoppingCartList = cartItemData.map((item, index) => {
         const {id, image, title, price} = item;
         const quantity = getItemQuantity(id) || 0;
@@ -166,6 +213,15 @@ const page = () => {
             </div>
           </>  
         }
+        {cartItemData.length > 0 && <StripeCheckout 
+            stripeKey="pk_test_51OtXWbBU6kjPaFI9hkFs7mMAvpL0ovSkTePVZnEYQHoNB2SSVFFRDUnb7Nursm6Rq9s3KGlFUG6JqVK9xcnaggk100ckYgV7lR"
+            token={handleToken}
+            billingAddress
+            shippingAddress
+            name= "All products"
+            amount={totalAmount * 100}
+            // the totalAmount is currently not maintained on state...
+        />}
       </main>
     </ProtectedRoute>
   )
